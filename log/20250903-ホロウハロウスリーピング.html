@@ -1,0 +1,4303 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <title>Ccfolia Log</title>
+    <style data-meta="layout">
+
+        :root {
+            --body-background: #424242;
+            --side-bar-background: #424242;
+            --header-background: #4d4d4d;
+            --strong-text-color: #FFF;
+            --rgb-text: 255;
+            --rgb-shadow: 0;
+            --tab-items-height: 150px;
+            --user-items-height: 350px;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--body-background);
+            overflow-x: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        .root {
+            display: flex;
+            height: 100%;
+        }
+
+        .side-bar {
+            width: 300px;
+            height: 100%;
+            position: fixed;
+            z-index: 100;
+            background-color: var(--side-bar-background);
+            border-right: 1px solid rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+            overflow-y: auto;
+        }
+
+        .side-bar hr {
+            border: none;
+            height: 1px;
+            margin: 0;
+            flex-shrink: 0;
+            background-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+        }
+
+        header {
+            background-color: var(--header-background);
+            height: 64px;
+            position: fixed;
+            padding-left: 24px;
+            box-shadow: 0px 2px 4px -1px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.2), 0px 4px 5px 0px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.14), 0px 1px 10px 0px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.12);
+            display: flex;
+            align-items: center;
+        }
+
+        header h1 {
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 1.17em;
+            font-weight: 300;
+            color: var(--strong-text-color);
+            margin: 0;
+        }
+
+        main {
+            position: absolute;
+        }
+
+        .messages-list {
+            margin-top: 64px;
+            margin-bottom: 0px;
+            padding: 8px 0px;
+        }
+
+        /* mobile */
+        @media (max-width: 960px) {
+            .side-bar {
+                left: 0;
+                transform: translateX(-300px);
+                visibility: hidden;
+                transition: 225ms;
+                border-right: none;
+                box-shadow: 0px 8px 10px -5px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.20), 0px 16px 24px 2px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.14), 0px 6px 30px 5px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.12);
+            }
+
+            header {
+                width: 100%;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            .messages-list {
+                width: 100%;
+            }
+
+            #drawer-open:checked ~ .side-bar {
+                transform: none;
+                visibility: visible;
+            }
+
+            .main-cover {
+                transition: 225ms;
+            }
+
+            #drawer-open:checked ~ .main-cover {
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                z-index: 1;
+                background-color: rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.5);
+            }
+        }
+
+        /* pc */
+        @media (min-width: 960px) {
+            header {
+                width: calc(100% - 300px);
+            }
+
+            main {
+                width: calc(100% - 300px);
+                margin-left: 300px;
+            }
+        }
+    </style>
+    <style data-meta="menu">
+        .menu-root {
+            padding: 8px 0px;
+        }
+
+        .accordion-input {
+            display: none;
+        }
+
+        .accordion-label {
+            padding: 8px 16px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+        }
+
+        .accordion-label-fonts {
+            font-size: 1rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.00938em;
+            color: var(--strong-text-color);
+            margin: 0;
+            width: 243px;
+        }
+
+        .accordion-items:not(:checked) {
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: 300ms;
+        }
+
+        #accordion-menu-tab:checked ~ #tab-items {
+            height: var(--tab-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        #accordion-menu-user:checked ~ #user-items {
+            height: var(--user-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        #accordion-menu-tab:checked ~ #tab-items {
+            height: var(--tab-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        .accordion-item {
+            padding: 4px 16px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .accordion-item-fonts {
+            font-size: 0.875rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.43;
+            letter-spacing: 0.01071em;
+            color: var(--strong-text-color);
+            margin: 0;
+            word-break: break-word;
+        }
+
+        .button-elements {
+            transition: 150ms;
+            cursor: pointer;
+        }
+
+        .button-elements:hover {
+            background-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.08);
+        }
+
+        .menu-header {
+            display: flex;
+            align-items: center;
+            height: 64px;
+            padding-left: 24px;
+        }
+    </style>
+    <style data-meta="checkbox">
+        .accordion-items input[type="checkbox"] {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            padding-left: 25px;
+            padding-right: 10px;
+        }
+
+        .accordion-items input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            left: 0;
+            top: 50%;
+            border: 2px solid;
+            border-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.7); /* 枠の色変更 お好きな色を */
+            border-radius: 3px;
+            background-color: var(--side-bar-background);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1), 0 0 0 rgba(203, 34, 237, .2);
+            -webkit-transition: all .275s;
+            transition: all .275s;
+        }
+
+        .accordion-items input[type="checkbox"]:checked::after {
+            content: "";
+            position: absolute;
+            display: block;
+            box-sizing: border-box;
+            width: 15px;
+            height: 7px;
+            margin-top: -6px;
+            top: 50%;
+            left: 3px;
+            transform: rotate(-45deg);
+            border-bottom: 3px solid;
+            border-left: 3px solid;
+            border-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.7);
+        }
+    </style>
+    <style data-meta="icons">
+        .hamburger-icon {
+            display: flex;
+            height: 48px;
+            width: 48px;
+            justify-content: center;
+            align-items: center;
+            z-index: 90;
+            cursor: pointer;
+            padding: 12px;
+            margin-left: -12px;
+            margin-right: 16px;
+            border-radius: 24px;
+        }
+
+        .hamburger-icon span,
+        .hamburger-icon span:before,
+        .hamburger-icon span:after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 18px;
+            background-color: var(--strong-text-color);
+            position: absolute;
+        }
+
+        .hamburger-icon span:before {
+            bottom: 5px;
+        }
+
+        .hamburger-icon span:after {
+            top: 5px;
+        }
+
+        .cancel-icon {
+            display: flex;
+            height: 48px;
+            width: 48px;
+            justify-content: center;
+            align-items: center;
+            z-index: 110;
+            cursor: pointer;
+            padding: 12px;
+            margin-left: -12px;
+            margin-right: 16px;
+            border-radius: 24px;
+        }
+
+        .cancel-icon span,
+        .cancel-icon span:before {
+            content: '';
+            height: 2px;
+            width: 18px;
+            background-color: var(--strong-text-color);
+            position: absolute;
+            transform: rotate(45deg);
+        }
+
+        .cancel-icon span:before {
+            transform: rotate(-90deg);
+        }
+
+        @media (min-width: 960px) {
+            .hamburger-icon {
+                display: none;
+            }
+
+            .cancel-icon {
+                display: none;
+            }
+        }
+    </style>
+    <style data-meta="message-item">
+        .message-item {
+            border-bottom: 1px solid rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .message-item .tab-area {
+            width: 56px;
+            min-width: 56px;
+        }
+
+        .message-item .tab-area .tab-text {
+            font-size: 0.75rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.66;
+            letter-spacing: 0.03333em;
+            color: #888888;
+            max-width: 50px;
+            word-break: break-word;
+        }
+
+        .message-item .message-area {
+            margin: 6px 0px;
+        }
+
+        .message-item .message-area .message-user-text {
+            font-size: 1rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.00938em;
+            word-break: break-word;
+            margin: 0;
+        }
+
+        .message-item .message-area .message-content-text {
+            font-size: 0.85rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.43;
+            letter-spacing: 0.01071em;
+            color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.9);
+            word-break: break-word;
+            margin: 0;
+        }
+    </style>
+
+    <script>
+        const showHide = (checkbox) => {
+            const targetMessages = document.getElementsByClassName(checkbox.id)
+            for (let i = 0; i < targetMessages.length; i++) {
+                const message = targetMessages[i]
+                const contexts = message.className.split(' ')
+                let checked = checkbox.checked
+                contexts.forEach((context) => {
+                    const contextCheckbox = document.getElementById(context)
+                    if (contextCheckbox) {
+                        checked &= contextCheckbox.checked
+                    }
+                })
+                message.style.display = checked ? '' : 'none'
+            }
+        }
+    </script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
+<style>* { font-family: sans-serif !important; }</style>
+<script src="norobot.js"></script>
+<script>if (!window.location.href.includes("forceReloaded")) { const sep = window.location.href.includes("?") ? "&" : "?"; window.location.href = window.location.href + sep + "forceReloaded=1"; }</script>
+</head>
+<body>
+<div class="root">
+    <input id="drawer-open" class="accordion-input" type="checkbox">
+    <nav class="side-bar">
+        <div class="menu-header">
+            <label for="drawer-open" class="cancel-icon button-elements">
+                <span></span>
+            </label>
+        </div>
+        <hr>
+        <div class="menu-root">
+            <!-- tabs -->
+            <input id="accordion-menu-tab" class="accordion-input" type="checkbox" checked="checked">
+            <label for="accordion-menu-tab" class="accordion-label button-elements">
+                <span class="accordion-label-fonts">Tabs</span>
+            </label>
+            <div id="tab-items" class="accordion-items">
+                <label for="tab-main" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-main" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">main</span>
+                </label>
+                <label for="tab-info" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-info" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">info</span>
+                </label>
+                <label for="tab-other" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-other" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">other</span>
+                </label>
+
+            </div>
+
+            <!-- users -->
+            <input id="accordion-menu-user" class="accordion-input" type="checkbox" checked="checked">
+            <label for="accordion-menu-user" class="accordion-label button-elements">
+                <span class="accordion-label-fonts">Users</span>
+            </label>
+            <div id="user-items" class="accordion-items">
+                <label for="user-岩館 葉亮" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-岩館 葉亮" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">岩館 葉亮</span>
+                </label>
+                <label for="user-岩館 紫月" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-岩館 紫月" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">岩館 紫月</span>
+                </label>
+                <label for="user-■" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-■" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">■</span>
+                </label>
+                <label for="user-system" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-system" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">system</span>
+                </label>
+                <label for="user-加世田 千滉" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-加世田 千滉" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">加世田 千滉</span>
+                </label>
+                <label for="user-瀬川 玲冴" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-瀬川 玲冴" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">瀬川 玲冴</span>
+                </label>
+                <label for="user-竹森 穂孝" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-竹森 穂孝" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">竹森 穂孝</span>
+                </label>
+
+            </div>
+        </div>
+    </nav>
+    <label for="drawer-open" class="main-cover"></label>
+    <main>
+        <header>
+            <!-- hamburger button -->
+            <label for="drawer-open" class="hamburger-icon button-elements">
+                <span></span>
+            </label>
+            <h1>Ccfolia Log</h1>
+        </header>
+        <div class="messages-list">
+            <div class="tab-main user-岩館 葉亮">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7c9d3b;" class="message-user-text">
+                            岩館 葉亮
+                        </p>
+                        <p class="message-content-text">
+                            「しづくん、大丈夫？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「……大丈夫………お父さん、ごめん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 葉亮">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7c9d3b;" class="message-user-text">
+                            岩館 葉亮
+                        </p>
+                        <p class="message-content-text">
+                            「んー？何も怒ってないよ。今日こっちで寝る？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「いや……いい。自分の部屋で……寝る」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 葉亮">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7c9d3b;" class="message-user-text">
+                            岩館 葉亮
+                        </p>
+                        <p class="message-content-text">
+                            「そっか。それじゃあおやすみ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「おやすみ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            階段を下りていく父の背中を見送ってから、自室へと入る。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「……はぁ…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            また、やってしまった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            もう、何度目だろうか。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            布団を捲り、中へと入る。<br>寝室は静寂の中にあり、泣き疲れた体は疲労感をたっぷりと蓄えている。<br>しかし、何度寝返りを打っても眠ることが出来ない。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （そうだ、加世田さんに連絡……）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            スマートフォンを開き、LINEを付ける。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            加世田とのトーク画面を開くと、数日前にも自分が謝罪のメッセージを送っているのが残っている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （……俺は、何度も何度も……）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            新しい謝罪のメッセージを打ちかけて、全て消した。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （いや、もう……0時過ぎだ。こんな時間に送るのは……余計に迷惑になる。明日、朝から連絡して……来週出勤した時、また改めて謝ろう）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ホーム画面に戻ろうとして、LINEニュースのタブに指が触れる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            『吉祥寺駅にて人身事故発生-死亡した女性はぶつかった拍子にホームから投げ出され……-』
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            本日、通勤ラッシュ時に発生した痛ましい事件。<br><br>■■■■さん(28歳)は勤務先の最寄り駅に降り立った後、混雑するホームと線路のギリギリを歩いていた。<br><br>黄色い線の外側を歩いていた■■■■さんは、反対側から人混みに押され、ぶつかってしまい、その拍子で線路へと投げ出されてしまう。<br><br>そのすぐ後、貨物車が通過し、■■■■さんは即死。<br><br>通勤ラッシュ時だった駅は混乱状態となり、間近で見ていた乗客や駅員の中にはパニック状態となる者も少なくなかった。<br><br>事故が発生した駅では飛び出し防止用のガードレールはなく、警察では事故の原因究明と、その当時の関係者への事情聴取を実施している。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            何処かで誰かが死んでいる。名前も知らない誰かだ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            だが、事故現場になっている駅はいつも自分が使っている駅で、今日の朝も例外ではなかった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （そういえば朝出勤するとき、誰かにぶつかったような……　その後すぐ来た電車に慌てて乗ったから、事故の話は後から知った）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜SAN＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            1d100&lt;=60 【正気度ロール】 (1D100&lt;=60) ＞ 70 ＞ 失敗
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            知らぬ間に、自分が誰かを殺したのではないか。そんな妄想じみたものが浮かんでは消える。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] SAN : 60 → 59
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「っ……！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            慌ててスマートフォンを閉じ、枕の下にうずめる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （なに、考えてるんだ。流石に、思い違いだろ）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            体はこんなにも疲れ果てているのに、頭だけが活発に動き、過去のあらゆるものを引きずり出してくる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            痛ましい記憶。恥ずかしい記憶。過去の自分が犯したどうにもならない失敗。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ──「周りはみんな孫自慢してるってのに、あんたたちはこんなにおかしい子を産んで…紫月のせいで、あたしが恥ずかしい思いをしてるのよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ──「お前のせいで、俺が怒られたんだぞ。はぁー……マジでいい加減にしろよ…… 人を悪者にして楽しいか？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ──「昨日は岩館のせいで……アレだったよな。来週また飲みなおそう。岩館には、内緒でさ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ──「全部おまえのせいだ！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「っ！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            頭の中に、そんな言葉がへばりつく。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            祖母の声。クラスメイトの声。上司の声。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            頭の中でたくさんの声が、紫月のせいだと責め立てる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「ごめ、んなさ…ごめんなさい…ごめんなさいっ！！う、あ…う、あぁあっ…！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            何が自分のせいなのだろうか。何が自分のせいではなかったのだろうか。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ニュースで見かけた人身事故も、相模原の死も、何もかもが、自分のせいに思えて仕方がない。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜SANc0/1＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            1d100&lt;=59 【正気度ロール】 (1D100&lt;=59) ＞ 60 ＞ 失敗
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] SAN : 59 → 58
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            (だめだ、お父さんたち眠ったところなのに……俺のせいで、邪魔したくないっ…！頭、止まれ……これ以上もう何も、考えるなっ……)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「っ、ぐ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            左手で首を絞め、右手で太腿を力任せに殴る。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            意識が薄くなる。痛みへとうつる。これでいい。紫月の太腿には青い痣がいくつもできていた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ぼんやりとした意識のまま、しばらく。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            午前1時。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            太腿の痛みも、頭の中の声も、和らいできた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            眠りに入るべきだ。<br>深く息を吸い、思考を止めて、ただゆったりと寝具に身を任せる。<br>頭の中の雑音をただ一心に拭い去っていく。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ■境界
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            日常の中で、自分さえいなければいいと感じたことはあるか。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            もしくは、消えたいと願った事は？
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            誰ともわからない、まあるくて、やさしい声が、頭をゆっくりと撫でたように思えた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （そんなの、ずっと思ってるよ）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] ？ : 5 → 15
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ■空と海
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            うっすらと目を開けた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「ひっ…！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            あなたは空を見ながら落下している。<br>びゅうびゅうと吹きすさぶ風を全身で受けながら、羽ばたく翼も持たずに落ちている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            青と橙のグラデーションがいっぱいに広がっていた。<br>陽の光がある筈なのに小さな星屑がはっきりと瞬き、空を舞っている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            一部の星は、その役目を終えたのか光を失ってあなたと同じように落下していく。<br>流星群ほどの美しい曲線を描くでもなく、それらはボロボロと死んでいった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            下を見れば闇を垂らしたような暗い海がある。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            とぷん。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            勢いの割に優しくその中へと身を投じた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （いたく、ない）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            どんどんと、沈んでいく。暗い暗い、海の底へ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            とぷん。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            同じように何か小さなものが落下してきた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            黒く、ほどほどに大きな何かはあなたを通り越すようにして落ちていった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜知識＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            CCB&lt;=85 【知識】 (1D100&lt;=85) ＞ 37 ＞ 成功
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            あれは、ドブネズミだ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ドブネズミとしては異質な、くすんだ緑色の瞳と一瞬目が合った。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            水の中にあるような浮遊感と、それに伴う息苦しさ。<br>のったりと重たい自分の体。呼吸も浅くなっていったが、やがてそれも終わりを迎える。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            落ちた先にあるのは、自身の寝室に見えた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            午前2時。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            べちゃり。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            音が耳に入り、目を開ける。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「あ、れ………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            気づけば海はなく、ベッドの中におり、周りを見てみても変わらず自分の寝室があるだけだった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            下半身に、じっとりとした感触のものが触れる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「ぁ………漏れてる……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ため息をついて布団を捲る。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            するとそこには、大きなネズミのひしゃげた死体があった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜SANc1/1d3＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            1d100&lt;=58 【正気度ロール】 (1D100&lt;=58) ＞ 54 ＞ 成功
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] SAN : 58 → 57
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「なっ…！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            いつもの室内で唯一、異質なものが転がっている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            そのドブネズミは今まさに死に絶えたように新鮮で、手を近付ければやや熱を帯びている。<br>どくどくとあたたかい血を流し、筋肉の拡縮運動故か小刻みに震えている。<br>口から吐き出された内容物には、コロ、とした白い結晶が混じっていた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「っ！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            部屋でドブネズミが死んでいる、その事実よりもその白い結晶に目がいってしまう。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            CCB&lt;=95 【博物学】 (1D100&lt;=95) ＞ 24 ＞ 成功
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            これは睡眠薬だ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            よく見ると、ドブネズミの死体のそばには記憶にない薬瓶も落ちていた。おそらくドブネズミの口からこぼれているそれと同じものだろう。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            (よかった、違う……『あれ』じゃない。よく見たら、色も形も、なにもかもが違う。『あれ』はもう少し小さくて、半透明で……)
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「ん……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「……あれって、なんだ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            考えを巡らせていく。頭が、痛む。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            静寂が煩く鼓膜を震わせる。<br>ぴーん、とした張り詰めた音が耳鳴りのようになり、その耳鳴りが波のように徐々に大きく襲い掛かってくる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            妙に現実的な光景が瞼の裏にある。<br>走っていると、突然見知らぬ誰かに腹を刺される。<br>激しい動悸と共に、訳も分からず発作の中で呼吸を失う。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜知識＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            CCB&lt;=85 【知識】 (1D100&lt;=85) ＞ 94 ＞ 失敗
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            思考を切り離す。そんな経験はない。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （疲れてるんだ。……俺には疲れる権利もないのに）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            座ったままで、目を閉じた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜SAN値＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            1d100&lt;=57 【正気度ロール】 (1D100&lt;=57) ＞ 83 ＞ 失敗
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ドブネズミの匂いが、鼻につく。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] ？ : 15 → 20
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            意識は、ぼんやりとしていく。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ■境界
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「ここ、は……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            妙にリアリティある光景が広がっていた。<br>手術台のようなものに寝かされた何かと、それを弄る誰かの背がある。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            彼は、寝かされた何かの腹を掻っ捌いた。<br>胃液に混じって取り出されたのは大量の、半透明な何かだった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            手術台に横たわる遺体は、相模原 涼のものだ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （ああ、そうだ。『あれ』だ……本当は、『あれ』のせいで、相模原さんは。でも、『あれ』って？）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ぷつ、と意識が途切れた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ■汚泥の底
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （ん…………お母さん？……いや、全然違う……）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            後頭部を撫でまわすのは何かの生き物という訳ではなく、生暖かい泥そのものだった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            あなたの背面全てを優しく濡らし、決して離してくれそうにないソレは、ぬらぬらとした光沢をもって身を包み込もうとしている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            意思を持ったようなその泥が、無防備な足指の隙間を、内腿を、耳の穴をのっそりと這い、やがては呼吸をする鼻や口をも塞ごうとする。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            零課に入ってからは、こうした意味のわからないものに体を良い様にされたこともある。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            怪異のそれだ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            でも今は、どうしてか抵抗する気になれなかった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            難しい事を考えなくて済むような、そんな妙にふわふわとした熱が全身をまさぐっている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            それがどこか快感だ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            周りを見回せばぷかぷかと浮かんでいるものがあった。ドブネズミだ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            視界が泥で埋め尽くされていく。<br>そのまま、引っ張られるように何処かに身を投げ出された。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            それは何処かシーツの上のようだった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            午前3時。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            カーテンの奥でうっすらとした光が射そうとしている。体が鉛のように重い。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「ゆ、め……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            身体には、生暖かい感覚が残っている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「……………嫌だな……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            何に対してとも分からない言葉が、無意識に口からこぼれた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            『先日発生した人身事故に進展がありました』
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            声の方を見ると、なぜか、部屋のテレビがついていた。時刻は3時ではあるが、早朝のニュース番組が始まっていた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            〇『人身事故、他殺の疑い有りか』
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            黄色い線の外側を歩いていた■■■■さん目掛けて歩く影がカメラに残っていたのです。<br><br>男性は、迷いなく■■■■さんへと進んでいき、外側に投げ出すようにぶつかっているのがわかります。<br><br>警察ではこの人物の捜索を開始。捜査網を広げるとの発言もありました。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「っ！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            煩いテレビを消し、布団を頭まで被る。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜SAN値＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            1d100&lt;=57 【正気度ロール】 (1D100&lt;=57) ＞ 86 ＞ 失敗
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            頭の中で何度もリフレインされる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            誰かを傷つける自分。自分を傷つける自分。<br>誰かを殺す自分。誰かに殺される自分。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            働いて、寝て、生きて、殺して、死んで、生かして、救って。食べて、暮らして、閉じて、引いて。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            そうして……脳がどろりと腐るような感触がある。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] ？ : 20 → 25
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ■交差点
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            雑踏がある。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            スクランブル交差点の中心で寝そべっている。<br>辺りは自身が慣れ親しんだ街並みのそれであるのに、その陰影が黄色と青のグラデーションとなって、何処か現実から反れていた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「また、違う夢か………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            人々が、自分など存在しないと言うように歩き続けている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            視界の端で、ボールのように投げ出されて、べちゃっと落ちる存在がある。<br>そちらに視線を向ければ、ドブネズミが社会のありとあらゆる人々に蹴られ、踏まれ、その原型がなくなる程にぐしゃぐしゃにされているのが見えた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「あ………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            誰かにそれが蹴られる度、どうしようもない悲しみを抱く。<br>これは、何なのだろうか。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            やがて、大きな影が自分の頭上を遮る。<br>大きな大きな革靴の裏が、容赦なく顔を踏み潰した。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ＜SANc1/1d3＞　▼
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            1d100&lt;=57 【正気度ロール】 (1D100&lt;=57) ＞ 7 ＞ 成功
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] SAN : 57 → 56
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ■境界
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            あなたは日々のストレスの中、どうにもならず生きている。<br>時には眠りを妨げる何かに脅かされながら。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            あのドブネズミの姿は正しく、自分自身だ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            何度も何度も執拗に殺されているような妄想がある。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            自分の腹に刺さったナイフ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            どくどくと零れる血、そしてそこから芽吹く色とりどりの花。あたたかくてうつくしかった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ああ、そうだったらよかった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ドブネズミのように下らなく、稚拙で、どうしようもない命。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            薄暗いあの場所で死ぬのは、自分の方がよかった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] ？ : 25 → 35
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            午前4時。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            寝室は静寂の中にあり、泣き疲れた体は疲労感をたっぷりと蓄えている。<br>しかし、何度寝返りを打っても眠ることが出来ない。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ここは、夢か現か。<br>もうなにもわからなくなってしまっていた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ピンポーン
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            突如、軽快な音が鳴り響く。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （いかなくちゃ、お父さんたちが起きちゃうから……）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ベッドから降り、部屋を出る。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            足の指の隙間には、泥と動物の肉片が詰まっていた。そのことにも気づかず、慌てて階段を降りる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            来客があれば何時であろうが容赦なく吠えているはずの愛犬の声は、聞こえない。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            鍵を開け、扉に手をかけようとしたところで、向こうから声がする。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「岩館、いるか」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            その声は、よく知っているものだった。身体が強張る。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「加世田さん…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            震える手で、扉を開く。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            そこにいたのは、同じ部署で働く三人──加世田、瀬川、竹森だった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            三人の顔は、暗くてよく見えない。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「……や。おはよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「……朝早くにごめんね。昨日の人身事故のことでさ、少し……聞きたいことがあるんだ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「瀬川さん、竹森さん………あ、はは」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            口の端から、乾いた笑いが漏れる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「ああ、やっぱり、そうなんだ。俺のせいなんだ。全部、全部が……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            これでようやく、裁いてもらえる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「駅に設置されている防犯カメラを解析したところ、被害者の女性にぶつかった男性が、君とよく似た顔立ちをしていることがわかった」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「警視庁特殊犯罪捜査零課として……これより取り調べを行う」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「加世田さん……はい！お願いします……俺が、俺が全部悪いです！あの事故も、相模原さんの事件も……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            ああ、これでようやく、責めてもらえる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「そうは言っていない」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「え………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「まだ、全然証拠不足だよ。怪異案件って可能性もあるしねー」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「俺たち、しづくんを捕まえに来たとかじゃないよ……！？いきなり来て、びっくりさせちゃったよね、ごめんね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「岩館。君も、捜査に加わってくれ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「……あ……あぁ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「…………。……どうして…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「……どうしてこんな……夢の中でまで、優しくしてくれるんですか……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            両目から涙が零れ、足の指先に詰まっていた泥を溶かす。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            これは、夢だ。はっきりとわかっている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            何度となく繰り返されたレム睡眠と深い睡眠の繰り返しの中、よくわからないものに囁かれているだけ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            静かに、深淵に身を委ねるように目を閉じる。一筋の光をその中で模索する。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            CCB&lt;=56-35 【SAN値-？】 (1D100&lt;=21) ＞ 31 ＞ 失敗
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            午前8時。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「っ……！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            勢いよく身を起こす。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            頬は、涙で濡れていた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「……アラーム……かけてなかったな………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            涙を拭い、カーテンを開ける。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            いつものような朝がやってきた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            妙な夢を見た気がしたが、どんなものだったか。思考が途切れている。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            （えっと、確か……）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「うあ、そうだ、連絡しないと！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            LINEを開くと、新しいニュースが届いていた。人身事故の続報だ。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            それは、紛れもない事故で、誰かにぶつかった上でホームから投げ出されたのではなく、歩きスマホをしていた被害者が足を滑らせた結果だとあった。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「…………そっ、か」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            今日も何処かで誰かが死に、そして生きている。<br>預かり知らないところで起きている事は、やはり預かり知らないことなのだろう。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「………加世田さんに、LINE送ろう」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            一日のはじまりである朝が来る。<br>一日のおわりである夜はまた来る。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            床につくその時は、ただ、ただ、眠りたいだけだ。<br>それが唯一、ぐるぐると回る思考から解放される瞬間なのだから。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            『おはようございます。昨日はご迷惑をおかけしました』
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            『ホロウハロウスリーピング』＜終＞
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ED：S-Ho
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            【報酬】<br>・生還　1d6<br>・後遺症『無自覚なる不調』<br>シナリオ開始時に必ずSANcを振る。失敗した場合SAN-1が無条件で発生する。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            1D6 (1D6) ＞ 5
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-system">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            system
+                        </p>
+                        <p class="message-content-text">
+                            [ 岩館 紫月 ] SAN : 56 → 60
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>
