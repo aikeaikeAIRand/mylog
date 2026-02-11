@@ -1,0 +1,1825 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <title>Ccfolia Log</title>
+    <style data-meta="layout">
+
+        :root {
+            --body-background: #424242;
+            --side-bar-background: #424242;
+            --header-background: #4d4d4d;
+            --strong-text-color: #FFF;
+            --rgb-text: 255;
+            --rgb-shadow: 0;
+            --tab-items-height: 150px;
+            --user-items-height: 700px;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--body-background);
+            overflow-x: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        .root {
+            display: flex;
+            height: 100%;
+        }
+
+        .side-bar {
+            width: 300px;
+            height: 100%;
+            position: fixed;
+            z-index: 100;
+            background-color: var(--side-bar-background);
+            border-right: 1px solid rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+            overflow-y: auto;
+        }
+
+        .side-bar hr {
+            border: none;
+            height: 1px;
+            margin: 0;
+            flex-shrink: 0;
+            background-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+        }
+
+        header {
+            background-color: var(--header-background);
+            height: 64px;
+            position: fixed;
+            padding-left: 24px;
+            box-shadow: 0px 2px 4px -1px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.2), 0px 4px 5px 0px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.14), 0px 1px 10px 0px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.12);
+            display: flex;
+            align-items: center;
+        }
+
+        header h1 {
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 1.17em;
+            font-weight: 300;
+            color: var(--strong-text-color);
+            margin: 0;
+        }
+
+        main {
+            position: absolute;
+        }
+
+        .messages-list {
+            margin-top: 64px;
+            margin-bottom: 0px;
+            padding: 8px 0px;
+        }
+
+        /* mobile */
+        @media (max-width: 960px) {
+            .side-bar {
+                left: 0;
+                transform: translateX(-300px);
+                visibility: hidden;
+                transition: 225ms;
+                border-right: none;
+                box-shadow: 0px 8px 10px -5px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.20), 0px 16px 24px 2px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.14), 0px 6px 30px 5px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.12);
+            }
+
+            header {
+                width: 100%;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            .messages-list {
+                width: 100%;
+            }
+
+            #drawer-open:checked ~ .side-bar {
+                transform: none;
+                visibility: visible;
+            }
+
+            .main-cover {
+                transition: 225ms;
+            }
+
+            #drawer-open:checked ~ .main-cover {
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                z-index: 1;
+                background-color: rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.5);
+            }
+        }
+
+        /* pc */
+        @media (min-width: 960px) {
+            header {
+                width: calc(100% - 300px);
+            }
+
+            main {
+                width: calc(100% - 300px);
+                margin-left: 300px;
+            }
+        }
+    </style>
+    <style data-meta="menu">
+        .menu-root {
+            padding: 8px 0px;
+        }
+
+        .accordion-input {
+            display: none;
+        }
+
+        .accordion-label {
+            padding: 8px 16px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+        }
+
+        .accordion-label-fonts {
+            font-size: 1rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.00938em;
+            color: var(--strong-text-color);
+            margin: 0;
+            width: 243px;
+        }
+
+        .accordion-items:not(:checked) {
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: 300ms;
+        }
+
+        #accordion-menu-tab:checked ~ #tab-items {
+            height: var(--tab-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        #accordion-menu-user:checked ~ #user-items {
+            height: var(--user-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        #accordion-menu-tab:checked ~ #tab-items {
+            height: var(--tab-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        .accordion-item {
+            padding: 4px 16px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .accordion-item-fonts {
+            font-size: 0.875rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.43;
+            letter-spacing: 0.01071em;
+            color: var(--strong-text-color);
+            margin: 0;
+            word-break: break-word;
+        }
+
+        .button-elements {
+            transition: 150ms;
+            cursor: pointer;
+        }
+
+        .button-elements:hover {
+            background-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.08);
+        }
+
+        .menu-header {
+            display: flex;
+            align-items: center;
+            height: 64px;
+            padding-left: 24px;
+        }
+    </style>
+    <style data-meta="checkbox">
+        .accordion-items input[type="checkbox"] {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            padding-left: 25px;
+            padding-right: 10px;
+        }
+
+        .accordion-items input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            left: 0;
+            top: 50%;
+            border: 2px solid;
+            border-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.7); /* 枠の色変更 お好きな色を */
+            border-radius: 3px;
+            background-color: var(--side-bar-background);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1), 0 0 0 rgba(203, 34, 237, .2);
+            -webkit-transition: all .275s;
+            transition: all .275s;
+        }
+
+        .accordion-items input[type="checkbox"]:checked::after {
+            content: "";
+            position: absolute;
+            display: block;
+            box-sizing: border-box;
+            width: 15px;
+            height: 7px;
+            margin-top: -6px;
+            top: 50%;
+            left: 3px;
+            transform: rotate(-45deg);
+            border-bottom: 3px solid;
+            border-left: 3px solid;
+            border-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.7);
+        }
+    </style>
+    <style data-meta="icons">
+        .hamburger-icon {
+            display: flex;
+            height: 48px;
+            width: 48px;
+            justify-content: center;
+            align-items: center;
+            z-index: 90;
+            cursor: pointer;
+            padding: 12px;
+            margin-left: -12px;
+            margin-right: 16px;
+            border-radius: 24px;
+        }
+
+        .hamburger-icon span,
+        .hamburger-icon span:before,
+        .hamburger-icon span:after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 18px;
+            background-color: var(--strong-text-color);
+            position: absolute;
+        }
+
+        .hamburger-icon span:before {
+            bottom: 5px;
+        }
+
+        .hamburger-icon span:after {
+            top: 5px;
+        }
+
+        .cancel-icon {
+            display: flex;
+            height: 48px;
+            width: 48px;
+            justify-content: center;
+            align-items: center;
+            z-index: 110;
+            cursor: pointer;
+            padding: 12px;
+            margin-left: -12px;
+            margin-right: 16px;
+            border-radius: 24px;
+        }
+
+        .cancel-icon span,
+        .cancel-icon span:before {
+            content: '';
+            height: 2px;
+            width: 18px;
+            background-color: var(--strong-text-color);
+            position: absolute;
+            transform: rotate(45deg);
+        }
+
+        .cancel-icon span:before {
+            transform: rotate(-90deg);
+        }
+
+        @media (min-width: 960px) {
+            .hamburger-icon {
+                display: none;
+            }
+
+            .cancel-icon {
+                display: none;
+            }
+        }
+    </style>
+    <style data-meta="message-item">
+        .message-item {
+            border-bottom: 1px solid rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .message-item .tab-area {
+            width: 56px;
+            min-width: 56px;
+        }
+
+        .message-item .tab-area .tab-text {
+            font-size: 0.75rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.66;
+            letter-spacing: 0.03333em;
+            color: #888888;
+            max-width: 50px;
+            word-break: break-word;
+        }
+
+        .message-item .message-area {
+            margin: 6px 0px;
+        }
+
+        .message-item .message-area .message-user-text {
+            font-size: 1rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.00938em;
+            word-break: break-word;
+            margin: 0;
+        }
+
+        .message-item .message-area .message-content-text {
+            font-size: 0.85rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.43;
+            letter-spacing: 0.01071em;
+            color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.9);
+            word-break: break-word;
+            margin: 0;
+        }
+    </style>
+
+    <script>
+        const showHide = (checkbox) => {
+            const targetMessages = document.getElementsByClassName(checkbox.id)
+            for (let i = 0; i < targetMessages.length; i++) {
+                const message = targetMessages[i]
+                const contexts = message.className.split(' ')
+                let checked = checkbox.checked
+                contexts.forEach((context) => {
+                    const contextCheckbox = document.getElementById(context)
+                    if (contextCheckbox) {
+                        checked &= contextCheckbox.checked
+                    }
+                })
+                message.style.display = checked ? '' : 'none'
+            }
+        }
+    </script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
+<style>* { font-family: sans-serif !important; }</style>
+<script src="norobot.js"></script>
+<script>if (!window.location.href.includes("forceReloaded")) { const sep = window.location.href.includes("?") ? "&" : "?"; window.location.href = window.location.href + sep + "forceReloaded=1"; }</script>
+</head>
+<body>
+<div class="root">
+    <input id="drawer-open" class="accordion-input" type="checkbox">
+    <nav class="side-bar">
+        <div class="menu-header">
+            <label for="drawer-open" class="cancel-icon button-elements">
+                <span></span>
+            </label>
+        </div>
+        <hr>
+        <div class="menu-root">
+            <!-- tabs -->
+            <input id="accordion-menu-tab" class="accordion-input" type="checkbox" checked="checked">
+            <label for="accordion-menu-tab" class="accordion-label button-elements">
+                <span class="accordion-label-fonts">Tabs</span>
+            </label>
+            <div id="tab-items" class="accordion-items">
+                <label for="tab-main" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-main" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">main</span>
+                </label>
+                <label for="tab-info" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-info" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">info</span>
+                </label>
+                <label for="tab-other" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-other" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">other</span>
+                </label>
+
+            </div>
+
+            <!-- users -->
+            <input id="accordion-menu-user" class="accordion-input" type="checkbox" checked="checked">
+            <label for="accordion-menu-user" class="accordion-label button-elements">
+                <span class="accordion-label-fonts">Users</span>
+            </label>
+            <div id="user-items" class="accordion-items">
+                <label for="user-▪︎" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-▪︎" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">▪︎</span>
+                </label>
+                <label for="user-南條 雨祢" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-南條 雨祢" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">南條 雨祢</span>
+                </label>
+                <label for="user-桐島 海" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-桐島 海" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">桐島 海</span>
+                </label>
+                <label for="user-藤代亨" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-藤代亨" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">藤代亨</span>
+                </label>
+                <label for="user-岩館 紫月" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-岩館 紫月" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">岩館 紫月</span>
+                </label>
+                <label for="user-加世田 千滉" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-加世田 千滉" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">加世田 千滉</span>
+                </label>
+                <label for="user-瀬川 玲冴" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-瀬川 玲冴" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">瀬川 玲冴</span>
+                </label>
+                <label for="user-竹森 穂孝" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-竹森 穂孝" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">竹森 穂孝</span>
+                </label>
+                <label for="user-萩原 伽伊" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-萩原 伽伊" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">萩原 伽伊</span>
+                </label>
+                <label for="user-山住 綾成" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-山住 綾成" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">山住 綾成</span>
+                </label>
+                <label for="user-嶋谷 麻広" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-嶋谷 麻広" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">嶋谷 麻広</span>
+                </label>
+                <label for="user-城野 壱作" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-城野 壱作" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">城野 壱作</span>
+                </label>
+                <label for="user-Yod Channah" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-Yod Channah" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">Yod Channah</span>
+                </label>
+                <label for="user-Louise Dubois" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-Louise Dubois" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">Louise Dubois</span>
+                </label>
+
+            </div>
+        </div>
+    </nav>
+    <label for="drawer-open" class="main-cover"></label>
+    <main>
+        <header>
+            <!-- hamburger button -->
+            <label for="drawer-open" class="hamburger-icon button-elements">
+                <span></span>
+            </label>
+            <h1>Ccfolia Log</h1>
+        </header>
+        <div class="messages-list">
+            <div class="tab-main user-▪︎">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ▪︎
+                        </p>
+                        <p class="message-content-text">
+                            【好きな味噌汁の具】
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-南條 雨祢">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3e80b3;" class="message-user-text">
+                            南條 雨祢
+                        </p>
+                        <p class="message-content-text">
+                            ｢ぼくはお麩かなぁ〜。お花のとか手毬麸が入っていると彩りが華やかで嬉しいだろう？｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-桐島 海">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3eb370;" class="message-user-text">
+                            桐島 海
+                        </p>
+                        <p class="message-content-text">
+                            ｢実家でたまに出てたじゃがいもの味噌汁、結構好きだったな。自分でもたまに作るよ。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-藤代亨">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b33e46;" class="message-user-text">
+                            藤代亨
+                        </p>
+                        <p class="message-content-text">
+                            ｢……その日の膳全体のバランスに合わせて具を調整する事しかしたことがないので、特に好きな具はないです。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「え〜……なんだろうな……迷うな……豚汁……？豚汁は別か……？いいか？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「好きな味噌汁の具材は……豆腐、だろうか。本日の朝食もちょうど豆腐の味噌汁だった。ふふ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「そもそも味噌汁あんまり飲まないから……別になんでもいいかな」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「えっ！？あっ、肉！いっぱい入ってるやつがいいな〜」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-萩原 伽伊">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7298b2;" class="message-user-text">
+                            萩原 伽伊
+                        </p>
+                        <p class="message-content-text">
+                            「オレの作る味噌汁を特別に教えてやる。豆腐、わかめ、それに……油揚げだ。まあ、この中で特に好きなものって言うなら………油揚げってところか」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-山住 綾成">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b984c1;" class="message-user-text">
+                            山住 綾成
+                        </p>
+                        <p class="message-content-text">
+                            「……？ わからない。具……なにがある？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-嶋谷 麻広">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a2b87f;" class="message-user-text">
+                            嶋谷 麻広
+                        </p>
+                        <p class="message-content-text">
+                            「味噌汁か〜悩むなぁ…… あ、里芋かな。芋系は剥くのがちょっと面倒だけど、美味しいんだよね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-城野 壱作">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b59394;" class="message-user-text">
+                            城野 壱作
+                        </p>
+                        <p class="message-content-text">
+                            「好きな味噌汁の具、か……。そうだな……しじみの味噌汁とか、結構飲みがちかもしれないな」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Yod Channah">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a05b73;" class="message-user-text">
+                            Yod Channah
+                        </p>
+                        <p class="message-content-text">
+                            ｢ピースープ(豆のスープ)、ですかね……。当時も粗食の自覚はありましたが、シャーレアンで飲んだ完全栄養食スープを飲んだ際に恋しくなる程度には慣れ親しんだ味だったので……。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Louise Dubois">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #673ab7;" class="message-user-text">
+                            Louise Dubois
+                        </p>
+                        <p class="message-content-text">
+                            ｢マトンスープが好きだね！レンティル＆チェスナットもいいけど、肉が入ってる分ご馳走だったんだ〜。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-▪︎">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ▪︎
+                        </p>
+                        <p class="message-content-text">
+                            【未来の技術で欲しいもの】
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-南條 雨祢">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3e80b3;" class="message-user-text">
+                            南條 雨祢
+                        </p>
+                        <p class="message-content-text">
+                            ｢ドラえもん！ドラえもんが欲しい！どこでもドアとかタケコプターとか出してもらうんだ！｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-桐島 海">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3eb370;" class="message-user-text">
+                            桐島 海
+                        </p>
+                        <p class="message-content-text">
+                            ｢うーん……。猫語翻訳機……とか？｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-藤代亨">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b33e46;" class="message-user-text">
+                            藤代亨
+                        </p>
+                        <p class="message-content-text">
+                            ｢……………………坊ちゃんを決まった時間に確実に起こせる機能のついたベッドがあったら、とは思います。はぁ……。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「瞬間移動……あーいややっぱ待って！生身で空飛ぶやつとかも欲しいし、寝なくてもいいように睡眠貯金的なやつもいいかもな……！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「未来の技術……。そうだな、いつも様々な技術で玲冴に助けてもらっているから、今は特に困っていないかもしれないな。ふふ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「んー……精神の完全電子化かな。そしたら、肉体が死んでも生き続けられるからね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「玲冴！……あっ、玲冴が欲しいものって意味じゃなくて、未来の技術は玲冴がつくるものだから、玲冴が未来の技術だよ〜みたいな！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-萩原 伽伊">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7298b2;" class="message-user-text">
+                            萩原 伽伊
+                        </p>
+                        <p class="message-content-text">
+                            「…………他の人の……夢の中にいける技術。そしたら……あやのこと、夢の中で一人にせずに済むから」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-山住 綾成">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b984c1;" class="message-user-text">
+                            山住 綾成
+                        </p>
+                        <p class="message-content-text">
+                            「未来の技術……？わからな……あ。あやの代わりに仕事に行くあや……出来る？ あやは家でオセロする」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-嶋谷 麻広">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a2b87f;" class="message-user-text">
+                            嶋谷 麻広
+                        </p>
+                        <p class="message-content-text">
+                            「未来の技術かぁ……あっ！  ひ、人の心の声が聞けるようになる機械とかあれば、壱作さんが僕のことどう思ってるか分か……あぁでもやっぱりそんなのあったら聞きたくないことまで聞こえちゃうかもしれないよ〜っ…！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-城野 壱作">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b59394;" class="message-user-text">
+                            城野 壱作
+                        </p>
+                        <p class="message-content-text">
+                            「…………もっと強く………いや、それは……自分で叶えること、かな。最近の技術は凄い発展しているから、足りないものを考えるのが難しいな……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Yod Channah">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a05b73;" class="message-user-text">
+                            Yod Channah
+                        </p>
+                        <p class="message-content-text">
+                            ｢私が持つこの学者のジョブクリスタルのレプリカ……。これの完成品が見られたら、とはおもっています。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Louise Dubois">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #673ab7;" class="message-user-text">
+                            Louise Dubois
+                        </p>
+                        <p class="message-content-text">
+                            ｢えー、なんだろう……？いくらでも美味しいパンが出てくる機械とか……？｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-▪︎">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ▪︎
+                        </p>
+                        <p class="message-content-text">
+                            【自分を動物にたとえるなら何？】
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-南條 雨祢">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3e80b3;" class="message-user-text">
+                            南條 雨祢
+                        </p>
+                        <p class="message-content-text">
+                            ｢ふっふっふ……ぼくは、そう……チーターだ。真っ黒のね。闇に隠れ、獲物を狩る。あの鋭い目としなやかな脚線美……この美しい僕にピッタリだろう？ライオンじゃない、ってところがミソだよ！｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-桐島 海">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3eb370;" class="message-user-text">
+                            桐島 海
+                        </p>
+                        <p class="message-content-text">
+                            ｢えー、なんだろう？大型犬っぽいって言われた事はあるかな？｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-藤代亨">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b33e46;" class="message-user-text">
+                            藤代亨
+                        </p>
+                        <p class="message-content-text">
+                            ｢さあ……。考えたことがありませんので……。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「あー……うさぎ。月だし…… いやでも自分でうさぎとか言うの恥ずかしいな……ドブネズミとかでいいよ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「！　紫月が以前、私を動物に例えるならコアラだと伝えてくれたことがある。落ち着いてしっかりとした姿が、それらしいようだ。ふふ……紫月……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「前にしづちゃんから猫っぽいって言われたことあったかな。穂孝が犬で、僕が猫なんだって」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「あっ、犬！しづくんがね、そう言ってたんだ〜。玲冴が猫で、俺が犬で、犬猫組なんだって！仲良しって感じだよね！えへへ〜……♡」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-萩原 伽伊">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7298b2;" class="message-user-text">
+                            萩原 伽伊
+                        </p>
+                        <p class="message-content-text">
+                            「オレを動物に当て嵌めるとするなら……鷹、だな。鷹は鋭い洞察力と、優れた行動力を持っている。オレにピッタリだろ？それに……『能ある鷹は爪を隠す』ってことわざもある。強者はその爪を研ぎ澄ましながら……来たるべき時までじっくりと備えているものだ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-山住 綾成">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b984c1;" class="message-user-text">
+                            山住 綾成
+                        </p>
+                        <p class="message-content-text">
+                            「……？ わからない。あ、でも……前に狼男の役、やったことある。台本あったら……なんの動物でも、出来る」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-嶋谷 麻広">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a2b87f;" class="message-user-text">
+                            嶋谷 麻広
+                        </p>
+                        <p class="message-content-text">
+                            「友達からはリスとかキリンとかって言われるかな〜」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-城野 壱作">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b59394;" class="message-user-text">
+                            城野 壱作
+                        </p>
+                        <p class="message-content-text">
+                            「動物か………。……そう、だな………。熊、とか……？けど……森の奥でひっそりと暮らすような、そんな熊になりたい…かな」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Yod Channah">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a05b73;" class="message-user-text">
+                            Yod Channah
+                        </p>
+                        <p class="message-content-text">
+                            ｢動物……？…………すみません、今は思い当たらないので考えておきます。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Louise Dubois">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #673ab7;" class="message-user-text">
+                            Louise Dubois
+                        </p>
+                        <p class="message-content-text">
+                            ｢アンテロープみたいねってキアに言われてたなぁ。狩りの時の動作がしなやかだって。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-▪︎">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ▪︎
+                        </p>
+                        <p class="message-content-text">
+                            【好きな麺料理】
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-南條 雨祢">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3e80b3;" class="message-user-text">
+                            南條 雨祢
+                        </p>
+                        <p class="message-content-text">
+                            ｢やはりスパゲッティだね！何のパスタが良いかはその日の気分次第だが今はペスカトーレの気分だよ！｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-桐島 海">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3eb370;" class="message-user-text">
+                            桐島 海
+                        </p>
+                        <p class="message-content-text">
+                            ｢ラーメンかなぁ。見かけるとつい入っちゃうんだよね。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-藤代亨">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b33e46;" class="message-user-text">
+                            藤代亨
+                        </p>
+                        <p class="message-content-text">
+                            ｢……強いて言うなら蕎麦、ですかね……｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「パスタかな…… 味の幅広いし」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「好きな麺料理……。蕎麦、だな。あの食感の良さと味わいが私は好きだ。この間、わんこそばを皆で食べた時は、穂孝が500杯以上食していて、とても良い食べっぷりだった。ふふ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「肉うどん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「肉うどん！！肉もうどんも山盛りにして〜、卵とかも入れたりして〜、いっぱい食べる！今食べたいな〜」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-萩原 伽伊">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7298b2;" class="message-user-text">
+                            萩原 伽伊
+                        </p>
+                        <p class="message-content-text">
+                            「ナポリタン、だな。よく食ってる。行きつけの店は……ってそこまで話すことじゃないな」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-山住 綾成">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b984c1;" class="message-user-text">
+                            山住 綾成
+                        </p>
+                        <p class="message-content-text">
+                            「麺…… 貰うお弁当の……下に、よく入ってる。あんまり味しない」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-嶋谷 麻広">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a2b87f;" class="message-user-text">
+                            嶋谷 麻広
+                        </p>
+                        <p class="message-content-text">
+                            「ラーメンかな。洸さんの家の近くのラーメン屋さんがね、夜遅くまでやってるし美味しくて、最近ちょっとハマってるんだよね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-城野 壱作">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b59394;" class="message-user-text">
+                            城野 壱作
+                        </p>
+                        <p class="message-content-text">
+                            「んー……蕎麦かな。うん、好きなんだよな、蕎麦……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Yod Channah">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a05b73;" class="message-user-text">
+                            Yod Channah
+                        </p>
+                        <p class="message-content-text">
+                            ｢以前イシュガルドに行った際に食べたペペロンチーノがとても美味しかったです。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Louise Dubois">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #673ab7;" class="message-user-text">
+                            Louise Dubois
+                        </p>
+                        <p class="message-content-text">
+                            ｢あ〜！えーっと名前なんだったっけ……。そうだ！オルトラーナ！すごい美味しかったんだよ〜！ふふ、イシュガルドで食べたんだ。また行ったら是非食べたいね。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-▪︎">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ▪︎
+                        </p>
+                        <p class="message-content-text">
+                            【最近ハマっていること】
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-南條 雨祢">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3e80b3;" class="message-user-text">
+                            南條 雨祢
+                        </p>
+                        <p class="message-content-text">
+                            ｢最近……というには定期的に波が来る、といった感じだけれど、マジック・ザ・ギャザリングは分かるかい？欲しい物がないか、カードショップを見つけるとつい入ってしまうんだよね。ん？ああ、対戦もたまにやるけど、主に投資目的かな。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-桐島 海">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3eb370;" class="message-user-text">
+                            桐島 海
+                        </p>
+                        <p class="message-content-text">
+                            ｢動画編集ソフトを使い比べたりしてるかなぁ。仕事に活かせる時もあるけど、一応趣味だね。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-藤代亨">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b33e46;" class="message-user-text">
+                            藤代亨
+                        </p>
+                        <p class="message-content-text">
+                            ｢ハマっている、とは違いますが、新しくより良い茶葉の開拓をしています。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「え、あー……名探偵プリキュアが始まったから、そのグッズをぼちぼち集め始めてる……絵柄可愛くて……。でもぉ！ビジュ気になってるキャラが人気すぎて、どこにもグッズ売ってないんだよ〜……！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「最近ハマっていること……　！　テニス、だな。紫月と二人でよくテニスをしていて、とても楽しくプレイさせてもらっている。この前は新しいテニスウェアを購入した。お揃いのテニスウェアだ。ふふ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「ハマってること……？ 今新アプリの開発してるから、そればっかりやってるけど……仕事に使うものだし、ハマってるとは言わないのかな？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「最近〜なんだろ？あっ、しづくんに前やってもらった…アクリルスタンド？の撮影会！あれ、すごい楽しかったな〜。またやりたいかも！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-萩原 伽伊">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7298b2;" class="message-user-text">
+                            萩原 伽伊
+                        </p>
+                        <p class="message-content-text">
+                            「最近ハマっていること……か。………裁縫。……あや、ぬいぐるみ好きだから……オレが作ったら喜ぶかな、って……………　なあ……コレ、くれぐれも記録に残すなよ？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-山住 綾成">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b984c1;" class="message-user-text">
+                            山住 綾成
+                        </p>
+                        <p class="message-content-text">
+                            「アソビ大全。オセロとか、ヨットとか、トイテニスとか、いっぱいしてる。オセロが一番してる」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-嶋谷 麻広">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a2b87f;" class="message-user-text">
+                            嶋谷 麻広
+                        </p>
+                        <p class="message-content-text">
+                            「最近はよくスケート行ってるよ〜。あ、まだあみちあで行ったことはなかったな。誘ってみようかな……  いや、でも壱作さんの身体に負担とか、ないかな……うーん……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-城野 壱作">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b59394;" class="message-user-text">
+                            城野 壱作
+                        </p>
+                        <p class="message-content-text">
+                            「何だろうな………。読書……は、昔からしているし、他に何か鑑賞系…………あ。……バラエティ番組……かもしれないな……ふふ。伽伊くんが出るとどんな番組も彼の味が出て面白いんだ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Yod Channah">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a05b73;" class="message-user-text">
+                            Yod Channah
+                        </p>
+                        <p class="message-content-text">
+                            ｢はまる、というのは……？……新種の植物を見つけた際にスケッチを取るのはずっとライフワークにしていますし……。本屋に寄ったら本を探す……のも昔からやっていますね……。………………ああ、結婚してからルイーズと珈琲を飲む習慣は新しく出来ましたね。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Louise Dubois">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #673ab7;" class="message-user-text">
+                            Louise Dubois
+                        </p>
+                        <p class="message-content-text">
+                            ｢雑貨屋巡りかな〜。まあ前から好きだったけど、ついついペア物を探すのが増えたかも。ふふっ、なんてね。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-▪︎">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ▪︎
+                        </p>
+                        <p class="message-content-text">
+                            【最近うれしかったこと】
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-南條 雨祢">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3e80b3;" class="message-user-text">
+                            南條 雨祢
+                        </p>
+                        <p class="message-content-text">
+                            ｢え…………うーん…………う〜〜〜……………………。ぱ、ふぇを…………食べに行った…………から。それ、かな。お、美味しかったよ！！！！！｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-桐島 海">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #3eb370;" class="message-user-text">
+                            桐島 海
+                        </p>
+                        <p class="message-content-text">
+                            ｢この間ペットコーナーで可愛い傘のチャームがあったんだ。レインにつけてあげたら喜んでくれたよ。写真見る？｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-藤代亨">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b33e46;" class="message-user-text">
+                            藤代亨
+                        </p>
+                        <p class="message-content-text">
+                            ｢……昨日は特に綺麗にクッキーが焼けました。……坊ちゃんはろくに召し上がりませんでしたが。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-岩館 紫月">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b099d9;" class="message-user-text">
+                            岩館 紫月
+                        </p>
+                        <p class="message-content-text">
+                            「最近の嬉しかったこと、か……   千滉さんがコラボカフェ当ててくれたこととか……あ、お揃いで手袋買ったのも嬉しかったし……  うぁ、やば……やばいな！？ み、満たされすぎて選べない……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-加世田 千滉">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7284ae;" class="message-user-text">
+                            加世田 千滉
+                        </p>
+                        <p class="message-content-text">
+                            「最近嬉しかったこと……！ふふ、どれを話そうか。紫月とお揃いの手袋を購入したことも、紫月が私のために謎解きを作ってくれたことも……どれも嬉しかったことばかりだ。ふふっ……毎日、沢山の嬉しいことが起きている。私は幸せ者だな……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-瀬川 玲冴">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #9dc8b7;" class="message-user-text">
+                            瀬川 玲冴
+                        </p>
+                        <p class="message-content-text">
+                            「んー…… あ。お年玉。こないだ、正月に千滉がくれたんだ。それで、僕もしづちゃんにあげて……ふふっ。うん、もらったのも、あげたのも……嬉しかったよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-竹森 穂孝">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #c88989;" class="message-user-text">
+                            竹森 穂孝
+                        </p>
+                        <p class="message-content-text">
+                            「わっ！悩むな〜。あっ！この前のお楽しみ会でね、みんなで初詣に行ったんだ〜！玲冴の袴がすごくってね……！？ご飯も美味しかったし〜、おみくじとか、お願いごととかもしたんだ！……また来年も、みんなで一緒に行きたいなあ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-萩原 伽伊">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7298b2;" class="message-user-text">
+                            萩原 伽伊
+                        </p>
+                        <p class="message-content-text">
+                            「最近嬉しかったこと………。これも……誰にも言うなよ？……あやが、前より笑うように……なった。本人はまだ気付いてないだろうけど……さ。好きなものが増えていってるみたいなんだ。それがオレは……何よりも、嬉しい」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-山住 綾成">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b984c1;" class="message-user-text">
+                            山住 綾成
+                        </p>
+                        <p class="message-content-text">
+                            「……あや嬉しそうって、伽伊くんに……言われたこと……たくさん……あった。なんだっけ……わからない。たくさんあったから」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-嶋谷 麻広">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a2b87f;" class="message-user-text">
+                            嶋谷 麻広
+                        </p>
+                        <p class="message-content-text">
+                            「嬉しかったことっ……！せ、先週壱作さんから個人LINEがきて！僕に似合いそうなマフラーを見つけて、買ってくれたんだって〜っ…！うぅうう……いや、多分誰にでもしてくれるんだろうから浮かれすぎないようにしなきゃだけど！でも壱作さんが、一緒にいない時でも僕のこと考えてくれてることが、すごく嬉しくて〜っ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-城野 壱作">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #b59394;" class="message-user-text">
+                            城野 壱作
+                        </p>
+                        <p class="message-content-text">
+                            「そう、だな……。……んっと、麻広が……とても嬉しそうにしてくれたこと、かな。……ああ、すまない。言葉が足りていなかった……。その、二人で出掛けた時に、一緒に食事をしたんだけど……俺の食べていた物を一口食べる？ってした時に、すごく嬉しそうで………その時の笑顔が………とても可愛かったなって………ふふっ……ああいや、すまない、個人的な話で………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Yod Channah">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #a05b73;" class="message-user-text">
+                            Yod Channah
+                        </p>
+                        <p class="message-content-text">
+                            ｢庭で育てている野菜やハーブがかなり育ってきたのでそろそろ収穫出来そうな事、ですかね。出来たらポトフにでもしようと思います。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-Louise Dubois">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #673ab7;" class="message-user-text">
+                            Louise Dubois
+                        </p>
+                        <p class="message-content-text">
+                            ｢あ、この間傭兵仲間から香水貰ったんだけどすごい良い香りだったんだ〜。私に合うんじゃない？って。ちょっと大人っぽすぎる気もするけどなぁ。｣
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>
