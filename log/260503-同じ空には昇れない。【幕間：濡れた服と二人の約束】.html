@@ -1,0 +1,4264 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width"/>
+    <title>同じ空には昇れない。【幕間：濡れた服と二人の約束】</title>
+    <style data-meta="layout">
+
+        :root {
+            --body-background: #424242;
+            --side-bar-background: #424242;
+            --header-background: #4d4d4d;
+            --strong-text-color: #FFF;
+            --rgb-text: 255;
+            --rgb-shadow: 0;
+            --tab-items-height: 150px;
+            --user-items-height: 150px;
+        }
+
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: -apple-system, "BlinkMacSystemFont", "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            background-color: var(--body-background);
+            overflow-x: hidden;
+            height: 100%;
+            width: 100%;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none
+        }
+
+        * {
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box
+        }
+
+        .root {
+            display: flex;
+            height: 100%;
+        }
+
+        .side-bar {
+            width: 300px;
+            height: 100%;
+            position: fixed;
+            z-index: 100;
+            background-color: var(--side-bar-background);
+            border-right: 1px solid rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+            overflow-y: auto;
+        }
+
+        .side-bar hr {
+            border: none;
+            height: 1px;
+            margin: 0;
+            flex-shrink: 0;
+            background-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+        }
+
+        header {
+            background-color: var(--header-background);
+            height: 64px;
+            position: fixed;
+            padding-left: 24px;
+            box-shadow: 0px 2px 4px -1px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.2), 0px 4px 5px 0px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.14), 0px 1px 10px 0px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.12);
+            display: flex;
+            align-items: center;
+        }
+
+        header h1 {
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-size: 1.17em;
+            font-weight: 300;
+            color: var(--strong-text-color);
+            margin: 0;
+        }
+
+        main {
+            position: absolute;
+        }
+
+        .messages-list {
+            margin-top: 64px;
+            margin-bottom: 0px;
+            padding: 8px 0px;
+        }
+
+        /* mobile */
+        @media (max-width: 960px) {
+            .side-bar {
+                left: 0;
+                transform: translateX(-300px);
+                visibility: hidden;
+                transition: 225ms;
+                border-right: none;
+                box-shadow: 0px 8px 10px -5px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.20), 0px 16px 24px 2px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.14), 0px 6px 30px 5px rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.12);
+            }
+
+            header {
+                width: 100%;
+            }
+
+            main {
+                width: 100%;
+            }
+
+            .messages-list {
+                width: 100%;
+            }
+
+            #drawer-open:checked ~ .side-bar {
+                transform: none;
+                visibility: visible;
+            }
+
+            .main-cover {
+                transition: 225ms;
+            }
+
+            #drawer-open:checked ~ .main-cover {
+                height: 100%;
+                width: 100%;
+                position: fixed;
+                z-index: 1;
+                background-color: rgba(var(--rgb-shadow), var(--rgb-shadow), var(--rgb-shadow), 0.5);
+            }
+        }
+
+        /* pc */
+        @media (min-width: 960px) {
+            header {
+                width: calc(100% - 300px);
+            }
+
+            main {
+                width: calc(100% - 300px);
+                margin-left: 300px;
+            }
+        }
+    </style>
+    <style data-meta="menu">
+        .menu-root {
+            padding: 8px 0px;
+        }
+
+        .accordion-input {
+            display: none;
+        }
+
+        .accordion-label {
+            padding: 8px 16px;
+            height: 48px;
+            display: flex;
+            align-items: center;
+        }
+
+        .accordion-label-fonts {
+            font-size: 1rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.00938em;
+            color: var(--strong-text-color);
+            margin: 0;
+            width: 243px;
+        }
+
+        .accordion-items:not(:checked) {
+            height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: 300ms;
+        }
+
+        #accordion-menu-tab:checked ~ #tab-items {
+            height: var(--tab-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        #accordion-menu-user:checked ~ #user-items {
+            height: var(--user-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        #accordion-menu-tab:checked ~ #tab-items {
+            height: var(--tab-items-height);
+            overflow: visible;
+            opacity: 1;
+        }
+
+        .accordion-item {
+            padding: 4px 16px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+        }
+
+        .accordion-item-fonts {
+            font-size: 0.875rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.43;
+            letter-spacing: 0.01071em;
+            color: var(--strong-text-color);
+            margin: 0;
+            word-break: break-word;
+        }
+
+        .button-elements {
+            transition: 150ms;
+            cursor: pointer;
+        }
+
+        .button-elements:hover {
+            background-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.08);
+        }
+
+        .menu-header {
+            display: flex;
+            align-items: center;
+            height: 64px;
+            padding-left: 24px;
+        }
+    </style>
+    <style data-meta="checkbox">
+        .accordion-items input[type="checkbox"] {
+            cursor: pointer;
+            display: inline-block;
+            position: relative;
+            padding-left: 25px;
+            padding-right: 10px;
+        }
+
+        .accordion-items input[type="checkbox"]::before {
+            content: "";
+            position: absolute;
+            box-sizing: border-box;
+            width: 20px;
+            height: 20px;
+            margin-top: -10px;
+            left: 0;
+            top: 50%;
+            border: 2px solid;
+            border-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.7); /* 枠の色変更 お好きな色を */
+            border-radius: 3px;
+            background-color: var(--side-bar-background);
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, .1), 0 0 0 rgba(203, 34, 237, .2);
+            -webkit-transition: all .275s;
+            transition: all .275s;
+        }
+
+        .accordion-items input[type="checkbox"]:checked::after {
+            content: "";
+            position: absolute;
+            display: block;
+            box-sizing: border-box;
+            width: 15px;
+            height: 7px;
+            margin-top: -6px;
+            top: 50%;
+            left: 3px;
+            transform: rotate(-45deg);
+            border-bottom: 3px solid;
+            border-left: 3px solid;
+            border-color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.7);
+        }
+    </style>
+    <style data-meta="icons">
+        .hamburger-icon {
+            display: flex;
+            height: 48px;
+            width: 48px;
+            justify-content: center;
+            align-items: center;
+            z-index: 90;
+            cursor: pointer;
+            padding: 12px;
+            margin-left: -12px;
+            margin-right: 16px;
+            border-radius: 24px;
+        }
+
+        .hamburger-icon span,
+        .hamburger-icon span:before,
+        .hamburger-icon span:after {
+            content: '';
+            display: block;
+            height: 2px;
+            width: 18px;
+            background-color: var(--strong-text-color);
+            position: absolute;
+        }
+
+        .hamburger-icon span:before {
+            bottom: 5px;
+        }
+
+        .hamburger-icon span:after {
+            top: 5px;
+        }
+
+        .cancel-icon {
+            display: flex;
+            height: 48px;
+            width: 48px;
+            justify-content: center;
+            align-items: center;
+            z-index: 110;
+            cursor: pointer;
+            padding: 12px;
+            margin-left: -12px;
+            margin-right: 16px;
+            border-radius: 24px;
+        }
+
+        .cancel-icon span,
+        .cancel-icon span:before {
+            content: '';
+            height: 2px;
+            width: 18px;
+            background-color: var(--strong-text-color);
+            position: absolute;
+            transform: rotate(45deg);
+        }
+
+        .cancel-icon span:before {
+            transform: rotate(-90deg);
+        }
+
+        @media (min-width: 960px) {
+            .hamburger-icon {
+                display: none;
+            }
+
+            .cancel-icon {
+                display: none;
+            }
+        }
+    </style>
+    <style data-meta="message-item">
+        .message-item {
+            border-bottom: 1px solid rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.12);
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .message-item .tab-area {
+            width: 56px;
+            min-width: 56px;
+        }
+
+        .message-item .tab-area .tab-text {
+            font-size: 0.75rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.66;
+            letter-spacing: 0.03333em;
+            color: #888888;
+            max-width: 50px;
+            word-break: break-word;
+        }
+
+        .message-item .message-area {
+            margin: 6px 0px;
+        }
+
+        .message-item .message-area .message-user-text {
+            font-size: 1rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.5;
+            letter-spacing: 0.00938em;
+            word-break: break-word;
+            margin: 0;
+        }
+
+        .message-item .message-area .message-content-text {
+            font-size: 0.85rem;
+            font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+            font-weight: 300;
+            line-height: 1.43;
+            letter-spacing: 0.01071em;
+            color: rgba(var(--rgb-text), var(--rgb-text), var(--rgb-text), 0.9);
+            word-break: break-word;
+            margin: 0;
+        }
+    </style>
+
+    <script>
+        const showHide = (checkbox) => {
+            const targetMessages = document.getElementsByClassName(checkbox.id)
+            for (let i = 0; i < targetMessages.length; i++) {
+                const message = targetMessages[i]
+                const contexts = message.className.split(' ')
+                let checked = checkbox.checked
+                contexts.forEach((context) => {
+                    const contextCheckbox = document.getElementById(context)
+                    if (contextCheckbox) {
+                        checked &= contextCheckbox.checked
+                    }
+                })
+                message.style.display = checked ? '' : 'none'
+            }
+        }
+    </script>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
+<style>* { font-family: sans-serif !important; }</style>
+<script src="norobot.js"></script>
+<script>if (!window.location.href.includes("forceReloaded")) { const sep = window.location.href.includes("?") ? "&" : "?"; window.location.href = window.location.href + sep + "forceReloaded=1"; }</script>
+</head>
+<body>
+<div class="root">
+    <input id="drawer-open" class="accordion-input" type="checkbox">
+    <nav class="side-bar">
+        <div class="menu-header">
+            <label for="drawer-open" class="cancel-icon button-elements">
+                <span></span>
+            </label>
+        </div>
+        <hr>
+        <div class="menu-root">
+            <!-- tabs -->
+            <input id="accordion-menu-tab" class="accordion-input" type="checkbox" checked="checked">
+            <label for="accordion-menu-tab" class="accordion-label button-elements">
+                <span class="accordion-label-fonts">Tabs</span>
+            </label>
+            <div id="tab-items" class="accordion-items">
+                <label for="tab-main" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-main" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">main</span>
+                </label>
+                <label for="tab-info" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-info" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">info</span>
+                </label>
+                <label for="tab-other" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="tab-other" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">other</span>
+                </label>
+
+            </div>
+
+            <!-- users -->
+            <input id="accordion-menu-user" class="accordion-input" type="checkbox" checked="checked">
+            <label for="accordion-menu-user" class="accordion-label button-elements">
+                <span class="accordion-label-fonts">Users</span>
+            </label>
+            <div id="user-items" class="accordion-items">
+                <label for="user- 日笠 暁斗" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user- 日笠 暁斗" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts"> 日笠 暁斗</span>
+                </label>
+                <label for="user-  仙堂 クロフ" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-  仙堂 クロフ" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">  仙堂 クロフ</span>
+                </label>
+                <label for="user-■" class="accordion-item button-elements">
+                    <div style="width: 56px;">
+                        <input id="user-■" onclick="showHide(this)" type="checkbox" checked="checked">
+                    </div>
+                    <span class="accordion-item-fonts">■</span>
+                </label>
+
+            </div>
+        </div>
+    </nav>
+    <label for="drawer-open" class="main-cover"></label>
+    <main>
+        <header>
+            <!-- hamburger button -->
+            <label for="drawer-open" class="hamburger-icon button-elements">
+                <span></span>
+            </label>
+            <h1>同じ空には昇れない。【幕間：濡れた服と二人の約束】</h1>
+        </header>
+        <div class="messages-list">
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            柔らかな感触が全身を包み込んでいる。また夢でも見ているのだろうか。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            何も見えないが、その感触がとてもあたたかく、心地いいことだけが分かる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            それになんだかほのかに甘い匂いがする。この夢はスポンジケーキのクリーム目線なのだろうか。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            と、ぼんやりと頭が回ってきたところで、自分の目が開いていない事実に気が付くだろう。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            （………あたたかくて、きもち……いいな………。ふわふわ、する…………）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            緩やかに目を開ける。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            眼前には、とても端正な顔立ちが広がっていた。白くて長い睫毛の一本一本がくっきりと見え、透き通った肌は絹のように美しい。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            彼──クロフは麗しく穏やかな顔で、静かな寝息を立てて眠っていた。自分のことを愛おしそうにぎゅっと抱きしめながら。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「っ………ふ、ぁあっ………！！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「んぇ…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ…………おきた……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ぁ………え………あれ………え、っと………？？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………っあ……！！……そ、っか………俺の家に……一緒に…………それで、すぐ、落ちて…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん…………あきくん、あったかいねぇ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「っ………！！　……うん………あった、かい………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            （息が、かかるくらい……近い………かわ、いい………。それに、ほんとに……あったかくて………全身…………）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「んっ……！？　お、俺も……抱きしめ、てる………！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………えへ……うれしい………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「っ～～……！！　……む、無意識に、してた……みたい……だね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            （や、ばい………心臓が、バクバクする～～………！）
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            身体をぐっと伸ばしてから、息をつく。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「宇宙人か、吸血鬼か……わかんないけど、なんにも来なくてよかった。でも……あきくん寝相悪いんだね……何回も起きちゃった……ふぁあ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「えっ……！？！ごめん……！！　俺、寝相悪かったんだ……知らなかった………。け、蹴ったりしてなかった？大丈夫………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「だいじょぶ～……うごうごしてただけ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「それならよかった、けど………明日からは起こさないようにしたいな……。寝相対策考えないと………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「まぶし……今何時……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ、今何時だろ。えっと………12時18分、だね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「すっごい早起きだ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ、でもすっごい早寝したし……普通か……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………あ、そういえば言えてなかったね。……おはよう、仙堂さん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「おはよ、あきくん。………えへへ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「んんっ………か、わいい…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「えぇっ……！？　あ、あきくんそんな……急にそんなことばっかり言うようになられたら恥ずかしっ……ん………………？　あっ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「えっ！？　大丈夫？どうかした……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ～～～……いや？　別に？　なんでも……ないよ？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ、ありすぎる……。その感じだとどこか痛い、とかじゃなさそうだけど………。……ね、どうしたの？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え～～っと。あ、汗が」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ、汗………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            首を傾げながら、掛け布団を捲ろうとする。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あっ、駄目！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「…………汗……なんだよね？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「じゃあ着替えないと……風邪引いちゃうと思うんだけど…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「き、着替え持ってきてないから大丈夫！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「だったら俺の服貸すよ。汗くらい、何も照れること無いと思うんだけど…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「いや………えーっとぉ………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            話しながら、自身の腹部に濡れた感覚があるのに気付く。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ん…………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            掛け布団を少し持ち上げて覗き込み、自身の腹部だけでなく、ベッド、そしてクロフの股が濡れていることにも気付く。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっ………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あー………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「汗」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「これ、おしっ………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「汗！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………嘘……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「……ごめんなさい………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっ……！大丈夫だよ……！　汗……汗だね？落ち込まないで、仙堂さん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            優しくクロフの頭をなでなでする。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「す、睡眠時間が……長すぎだよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっ！？いつもの俺の睡眠時間なのに……！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え！？　いつもこんなに寝てるんだ……よくおねしょしないね……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「し、したことは……ないね。飲んでる量も少ないからかな………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え～～……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……って、俺に合わせてくれたんだよね。無理させてごめんね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え？ううん……昨日いっぱい歩いてくたくたで……まだ寝れるよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「それも俺のせいなんだけど～………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え、なんで？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「俺のためにいっぱい頑張って疲れちゃったんでしょ？　仙堂さんは何も気にしなくていいんだよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん……でも、あきくんのせいとかじゃないからね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「んん………ずっと君は優しいね……。……って、このままじゃ風邪引いちゃうな……！？　とにかく着替えようか。俺の服貸すよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え、あきくんの服？着たい～……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ふふ……ちょっと待ってね。君に似合う服あるかなあ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………これは……地味かな。こっち………いや……これかもな………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あきくんの服、小さくないかなぁ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ……確かに、仙堂さんの方が大きいから………ちょっとゆったりしてる方がよさそうだね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「！　………ね、これとかどうかな？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「なんでもいいよ？　あきくんの服なら」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「仙堂さんに一番似合うのを着てほしくて……！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……よし、じゃあこれで決まり……！さっそく…………って、先にお風呂に入らないとね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「オレ………先週お風呂入ったよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「先週…………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………もしかしなくても、仙堂さんってたまにしかお風呂入らない系？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「だ、だってめんどくさいじゃん……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「身体かゆくなっちゃうよ……？　洗うのが大変なら俺が洗…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「っあ………！いや、変な意味じゃなくって………！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「かゆくないもん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ん、んんっ………じゃあ……かゆくなったら正直に言ってくれる？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………うん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「わかった。じゃあ今日は入らなくていいから………せめて濡れたところは拭いてね？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………あ、んっと…………じ、自分でお尻拭けそう……かな………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「で、できるもん！いつも自分でしてる！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ん、ふふっ………ごめんごめん……！　でも………途中で適当にしちゃダメだからね？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「わかってるよー……えへへ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「～っ……。………っと、じゃあこれが着る服で…………ぁ……中……も、必要……っで……！……それと、こっちがタオル……だね！………えっと、俺はあっち向いてるから……他にも必要なものがあったら……言ってね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「？　どこ見てるの？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「えっ！？……壁……かな……？　着替え終わるまで仙堂さんのこと見ないようにするから………終わったら教えてね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「……？　わかった」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「別に……見られても気にしないよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「んぇっ………でも、あんまりじろじろ見るものじゃないかな、って…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「それも……そっか。でも、遠くには行かないでね。オレはキミのこと、見てるからね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ………も、もちろん……！　君のそばにいるよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「着替えできたよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「！　うん、じゃあそっち見るね……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            振り返り、自身のよく着ている服に身を包んだクロフが視界に飛び込む。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「っわ………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あきくんの匂いがする～……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ん、んんっ………！……よく、似合ってる……ね。かわいい…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「えへへ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「～っ……。……あ……！サイズはきつくなかったかな……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「ん～……ちょうどいい、けどぶかぶか？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……あ、確かに……俺より仙堂さんの方が華奢だからかな。ちょっと余っちゃってるね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「どこかで仙堂さんの荷物もこっちに持ってこないとね。今日は……ひとまず俺の服で………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「服、さっきのしかないよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「えっ……！？……いつも同じ格好だからお気に入りなのかなって思ってたけど………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「夏服とかも……ない、のかな………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あの服洗う時はタオル巻いてる」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「タオル……！？　……仙堂さんのスタイルに口出したいわけじゃないんだけど………よかったらどこかで俺と一緒に服買いに行かない……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え！　一緒に買い物……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「うん。外に着ていく服もそうだけど………パジャマとかも無いんだよね？　だんだん寒くなってくるし……色々あった方が良いと思うんだ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「いつも布団ぐるぐる巻きにしてる」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「んん、ぐるぐる巻きの仙堂さん………。……って、よくないよ……！　俺、仙堂さんの私生活が心配になってきた………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「だ、大丈夫だもん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「本当かなぁ……。……あ、脱いだ服は俺に任せて。洗濯にかけてくるよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「嗅がないでね………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「へっ……！？！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……っか……嗅ぐつもりで言ったわけじゃ……なかった、よ………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「ほんとにだめだからね！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「…………た、たぶん……嗅がない……はず…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「えーー！？　じゃあオレ、自分でする！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっ！？ご、ごめん……！でも……聞いたら気になっちゃうって～………！　あ、あんまり嗅がないようにするから、さ………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「ちょっともだめ！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「というか、その……意識したら今もちょっとだけすでに…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「や、やっぱり返してーー！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「お、俺……このまま洗濯行ってくる……！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「もーー！！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………へへ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……お、お待たせ…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ……嗅いでないよね！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………っそれは……その…………あ、そうだ！この後、どうしよっか………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「この後？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……ん、うん……！　その……えっと、お昼ご飯……かな？………あれ、仙堂さんってお昼………どうしてる？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「昼は寝てるよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ、そっか………。じゃあ、夜……かな？ご飯って……牛乳……なんだっけ………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん、血か牛乳……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「確か、血は……ずっと飲んでないって言ってた気がするけど………あれ、お腹空くくらい飲んでなかったってことは…………その……絶食でもしてた…………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「っ……！　い、いや……えっと……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「ぎゅ、牛乳買いに行くのが……面倒だったの！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「え……あ～……いや、確かに………？……でも、血だったらわざわざ買いに行かなくても…………いや、血の方が難しいか………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「……………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ……でも、牛乳ならメーソンにも売ってるよね……。うーん……他にも、何か飲めない理由があった、とか………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「なんでもないからっ！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「えっ！？……ごめん、もしかして聞かれたくなかった……かな。………でも、倒れるくらい絶食することになってるのは……やっぱり心配だよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………オレのことは……あんまり気にしなくていいよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……ううん、気になるよ。……牛乳、冷蔵庫にあったと思うけど………その様子だと、飲めない理由があるんだよね……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「だったらさ。君が嫌じゃ無ければ………その…………血なら、ここに……あるよ？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「えっ………！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「で、でも………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ、痛いかも……っていうのが気になるのかな………？　それなら大丈夫だよ。最初の時だって……痛くはなかったから……さ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「い、いいの……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「！　うん、もちろん。血なら飲めるんだね……よかった……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「…………別に、牛乳も飲めるよ……でも……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………あきくんがいい……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………！　じゃあ……飲んで、ほしいな。えっと……吸血ってどこからするんだろう。やっぱり、首……とか………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ちょっと待ってね。服を………うん、これなら飲みやすい……かな？……その………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「め、召し上がれ………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「……うん…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            恐る恐る暁斗に近づき、首元に顔をうずめる。そのまま歯を首筋に突き立てた。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ぁ、っ…………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………うっ……！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「げほっ、ごほっ………ま、まずぅうう……うんちの、うんちの味がするっ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「えっ！？！だ、大丈夫？！！………うんち！！？！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「う……ぇ………うんち……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっぁああ………ごめん、俺……うんち野郎だったなんて………。仙堂さん、大丈夫……！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            クロフの背中をさすさすと撫でる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「い、いいの……それでも……それでも、キミの血がいい………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「うんちはやばいって………！……ごめん、ごめんね。せっかく飲んでくれたのに………。俺ってもしかして不健康だった、のかな…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「わ、わかんない……こんなまずい血、他に飲んだことない……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ごめん、俺の血を選んでくれたのに………。俺………美味しい血になるように、頑張るよ。どうにか、したいよ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「ううん………大丈夫……ありがと………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「また、飲ませてくれる……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……！　俺はもちろんいいけど………ま、まだうんち味だよ………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「それでも………キミのがいいの………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「っ……！！　仙堂さん………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            ぎゅうっとクロフの体を包み込むように抱きしめる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あきくん…………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「…………大好き……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ…………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………俺、俺もっ………仙堂さんの、こと…………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………あ、れ…………？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            クロフの顔を覗き込むと、うなだれたまま目を閉じているのに気付く。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「き、気絶してる………！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「大丈夫………！？大丈夫……？仙堂さんっ………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-■">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #888888;" class="message-user-text">
+                            ■
+                        </p>
+                        <p class="message-content-text">
+                            ◆
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「……………ほぁ…？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっ………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「仙堂さん……よかった………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            抱きしめていた状態から、より一層すりすりと抱き寄せる。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「わ、あきくん……！　あ、あれ？　オレ………寝てた？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「うん……。俺の……血を飲んですぐに………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ～……うんちの味が……こう……ぐわっときて………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………！　次の休み、俺病院で血液検査するね……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え～……？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「でもね、身体はすっごい元気だよ！　今なら昨日の階段自分で登れそうだもん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ほ、ほんと？それならよかった……。けど味はほんとに何とかするからね………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            スマホから14時前を知らせるアラームが鳴り響く。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ、目覚ましなってるよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ………仕事の時間だ………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「せっかく目が覚めたところだけど………俺、そろそろ行かなくちゃ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ、そっか……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「………危ないかもだし、一緒に行きたいけど～………この時間じゃ……オレは外に出れないな……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            カーテンの隙間から光が漏れ出ているのを見つめ、ため息をつく。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あ…………俺も、心配だな………仙堂さんのこと………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………！　ねっ、ねえ……仙堂さん！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「ん？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「連絡先……交換しない……！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「連絡先交換………あ、LINE！？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「うんっ！　そしたら……一緒には行けなくても………せめて行くまでの間は話していられるかなって………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「話したい！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ね……！　もし、何かあっても……いつでも連絡入れられるしね。じゃ、じゃあ………交換、しよっか」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「えーっと………どうやるの？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「んっと………LINEはあるかな？　開いて……ここのボタンを押してもらって………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「こう？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「そうそう。で、次はこっち押して～。俺がQRコードかざすよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「ん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ありがとう。……あ、できたできた。クロフ……さん、だね。………俺からメッセージ飛ばしたよ。届いたかな？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ、来た！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「よかった。じゃあ……ふふ、これで繋いでいこっか。あ……帰りはどうする？」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「あ、帰りの時間なら外出られるから迎えに行くよ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「わざわざいいの？　帰りも通話は繋げられるし、まっすぐ帰るつもりではあるけど………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「だって、心配だし……早く会いたいもん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「っ～……！………そ、っか……。俺も……早く会えるのは……嬉しいな……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっ……！だったらさ………帰りに一緒に服見に行くのはどうかな？　すぐそこにあるからさ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え？服はこれでいいけど………あ、でもあきくんの服汚しちゃったらやだな………新しい服、欲しい」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「俺の服はいくら濡らしても何しても構わないけど………せっかくなら君に合う服をちゃんと選びたいなって。きっと……色んな服を着こなせると思うんだ」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「え～……そうかなぁ。ふふっ……じゃあやっぱり行きたい」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「ふふ……コーディネートは俺に任せて。楽しみだな………一日じゃ時間足りないかもな～……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            スマホから14時直前を知らせるアラームが鳴り響く。
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「また目覚まし鳴ってるよ！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「うわっ、まずいまずい遅刻する……！じゃあ、通話繋いで行ってくるね。えっと………」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「……い、行ってきます……仙堂さん………！」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user-  仙堂 クロフ">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #7e468c;" class="message-user-text">
+                              仙堂 クロフ
+                        </p>
+                        <p class="message-content-text">
+                            「うん！行ってらっしゃい、あきくん」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「………！　へへ……」
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-main user- 日笠 暁斗">
+                <div class="message-item">
+                    <div class="tab-area">
+                        <span class="tab-text">main</span>
+                    </div>
+                    <div class="message-area">
+                        <p style="color: #eaaa5d;" class="message-user-text">
+                             日笠 暁斗
+                        </p>
+                        <p class="message-content-text">
+                            「あっ……じゃあ、続きは……こっちで！行ってくるね」
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</div>
+</body>
+</html>
