@@ -1,0 +1,4527 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>コニウェア平原にて [すべて]</title>
+    <style>
+      :root {
+        color-scheme: dark;
+        color: #eee;
+        background: #121212;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        min-width: 280px;
+        margin: 0;
+        background: #121212;
+      }
+
+      .message-list {
+        width: 100%;
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 0 24px 48px;
+      }
+
+      .log-title {
+        margin: 24px 0;
+        font-size: 24px;
+      }
+
+      .message {
+        display: grid;
+        grid-template-columns: 40px minmax(0, 1fr);
+        column-gap: 12px;
+        padding: 16px 0;
+        border-bottom: 1px solid #262626;
+      }
+
+      .message.system {
+        display: block;
+        padding-left: 52px;
+        color: #888;
+      }
+
+      .avatar,
+      .avatar-spacer {
+        width: 40px;
+        height: 40px;
+      }
+
+      .avatar {
+        display: block;
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+      }
+
+
+      .avatar-image-0 { background-image: url("data:image/jpeg;base64,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"); }
+
+      .avatar-image-1 { background-image: url("data:image/jpeg;base64,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"); }
+
+      .avatar-image-2 { background-image: url("data:image/jpeg;base64,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"); }
+
+      .avatar-image-3 { background-image: url("data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAMCAgICAgMCAgIDAwMDBAYEBAQEBAgGBgUGCQgKCgkICQkKDA8MCgsOCwkJDRENDg8QEBEQCgwSExIQEw8QEBD/2wBDAQMDAwQDBAgEBAgQCwkLEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBAQEBD/wAARCABQAFADASIAAhEBAxEB/8QAHAAAAgMAAwEAAAAAAAAAAAAABwgABQYCAwQJ/8QAORAAAgICAQQBAgQEAwYHAAAAAQIDBAURBgAHEiExEyIIFDJBFSNRgRZCcSQzQ2GRsSZScqHB4fH/xAAaAQACAwEBAAAAAAAAAAAAAAAABAIDBgUB/8QAKxEAAQMCBQIFBQEAAAAAAAAAAQACAxEhBAUSMUFRYSJxgaHwBhORsdHB/9oADAMBAAIRAxEAPwB/ep1Op0IU64T2IKsTT2Z44Yk/U8jBVH7eyeuNy3XoVJr1uURwV42lkc/Cqo2T/wBB0F+T57M83ttGsTfkGP8AsdA6AIH/ABZj7/197CjQALbLCFruRd8+3vHwUjyFjLzKdGLF1zY0Nb35+o9ex/m3/wBDrycR/ER2s5ddXEx5xsRkXLeFPLxflXfWv0sx8GP7+IYtoE60Og/zbCUMZVKZLLySSOSY4K0YRQv9Cp3+/wDm+3pc+VcTizWex8VJWs147gkmiceJIVWI/bX6vH3/APfQhfTYMGAZSCD7BH79TpUOyXc3J9vLMHGMvJJJxySURiKWTybGlm/WhPv6Wzsj4HyAN/c14YMAykEEbBH79CFOp1Op0IU6nU64yu0cbusbSMqkhFI2x/oNkDf+pA6EIbd3uQhp8fwmtMgkuj85dAceaV0b7AV1vxZw33bHuPXvZ1X4yKBX8d+EQIViDoyPrYXf9AOgdY7r4nmfcjN8zpQ5O7XtGpVpRx1C08FSJPN4zFGWPuUP9x1tpDr7V31sMDneRZ20LNylNiKMaMVFoBJ2RjttR78lJ9bZ/HQ0AD0IXX3HnQFo6ir+YtSCCJ2+SSdbH/IdDCtxTN4bLZeS/fpWpMKK0srR+Wz9Xy9DY/YAfOv79EC/kKOd5a2TLE0MBGs5jQbYyE6jUKPfkWGx/wCkA6J6rc3ynB8WwV6DlN6OPKZ2SaZqULCSQs6hVRR69iMJvyOgQx34jYbggEjau+fD+lz8TijE/S3t8/H7VjkMbQyONr2kjVZJoFY6X5Rh/wDBH/bow9gubHkvGbHH704fJcdkWrINN5NXIIickjR9pIno/wDD2fn2q9TntmvNjKdp0RagatIPqA7jb2reiQR4j1o+yj/tonY/h85bjMd+IG5BbzsdCDNYZ4kisWkjjnsrYiWOBVOvOUO02gCWHmwAIc+KhFN0+CCKhON1Op1OherhNNDWhksWJUiiiUvJI7BVRQNkkn0AB+/QU5X+JfAJmZeM8OeO5ZiBM1k+1QDY2q/03rTH59/aR76te9fa/uZ3Roy4TA9w6PHcazAqi0JJZHGhv6h+ooY+WyPgDY9EjfSQ5bA5/wDDrnOT4Dly/mrNICevZXYGSSU6gdSdnbtpCPfi3kN/b0jmWKdhIaxCrjavA/p9vNdPJsCzMMRpndRjb05d/B158t1seS8clp8ws5JlxVzHWRJkzFMYYWjlkdmcn5Kp5B22I/HbeII0AN/w18zy+gcZh5qWHqp9th4iZHJI2PH7V/v6B/5jRHWG7bcIxnOpaa80U8izF0okZkdljrsxB8IFUj6ag62R9xCjyJ117u3PJo+Lcus08iyVK2Qda1SHzOoSu/GP38n2+2J2Tr2SenMqkZi42PlO9vVc7O4pMDNJFCNr36H1vRELhXZu5xDMz8gz/LI81KhZqCRUGqflvJWV1YiVhKpBGg4JBGwRs7HXM+xdrm+bny2N5w2Jq2PKSSoaUswkkbfkzuLCFxtiVQjwXWwASxYrcx5NkDhzBUqVp1f9bT5KSkB79akjRmH/ALdZ3F8guQ47xvUqlUKNJ+XuvZUrr583RCf7j+/WkDGNsAsh96UnWTdDHmXFMXgK7w0IomuLNPed68IgRWc7dY419LGFH2oSfgEkt93VZwvB3IM9ju41jJY+ZqIS1TELLORZ8R4OysNI6jR9ew43v2d+1Mg3NO4FexjL6NSmd6kgabxieNAxcsSPt1pj5D/yrvYJHVN3I4PjuJSWf8MRTYLM453BP1mP1JVPuOcEkOpIIIPxs+OvnrL5xiRCxzorbAe+y2f09hDiZWRzVNak+VrFMZwj8XkOMzUHFO40afziBDeX7HZdH3r9LnfiNfaQAT956ZjF5THZqhDlMTdht1LC+Uc0TBlYfHz/AK7BH7EEdfNDt32+ufid5VhcHjbn8NpvWkv5KyU83pRxMqSIBsbk+owjHv8Aq3sDp5uz3Ylez0TVsf3Bz+UrMQWgtiH6bgAgBtJvY3sEEH1okj10vluJkxUNZhQi1evpwfZO5xgosDidOHdVpvTlte/I87juin0Du6nZrtF+IPnHH7uX5lUmm46JlsY7GXIfzFxlIMSSsCWVIvKc+IXe5dhl8fei7l8km5Rj5uHcOY2JZZo1v2BI0cIhBJeISL7JJCBgAVKsyk/I6y9avVxtitxfP4qKt+YCmhdrynQsqdhA2g0b+gUYH2dj7SF8m3xtlGl4qEhFK+B2uM0Kt6PZbAdq8lneb8LrKGTHeGKx9mwqwU7JBV5GklOwmghJLEgGX021UJl3D45b4nmqbc4yle5Qo2WfI38WJLcapIq/zw2lMsaSkrIwCkEa/wAyFjN3A7Z2JlytzIcpyGR5BiokyeNlz98TV5lifbL4yHUbe0jdkAXTwn0T4itxNenc4zUtZ9pa3Fc6DkMXk3iUT4OxMWaWrZDAqYizOFdgVYEo29qXgIGsjMcfhrXbivIUpJ3zvD5TqNt+y68Tk+RYPj0WSk/8U4GXZq5bG7nUxeyrSMBpfQAPmRpvt8m2CcrmKvcHujVsycfxz4XjlTZyWXt/ZWrRBSzs8hKq5UL/ALqMltsnkUVi419fttyHs7e/xP29zdaqz46/lq0mGsvHjsnJXT635W1j3+ogLxq4EsLxkaOlHrrp7vYb/HXdbi3a+49qXt+uHGfhw1GQ1obk1nNNC5lKa8khimSXXzpG0VLlgniM4zCADCOLdTtn04G/h21XFLhvUAJNmVYV0gmaDpG7a/7vT3Qd7c3+L5e/lsvjM7jMZhaF0TUpMxBIYbf3MDFJ9NHKpJGjsD9NjrxBA2SHQp8b7Cd4u4LcvjylTL2XoskuFuwvD9VteAtfQmCuwCBlDeJXYDA+QB6WflnH+1lWDHLLkq0TU68mVy0NCv8ATo42vYpyQpXbW/OwySx+mYsRHpQqAIPHPmcrBw7jWL5DVy2JvY9YKqZWKvagjsRtGYHkeSeuip/LkMgXyP3qvyPllsbXRtZJelN73HKdbM+J7nRGlenQonfhO5DwLhfMeV5ChBWwOA5vJXs46N7UjRVpUabwh8pNkF4nQsWYDzU6ADAK4qOkiLJG4ZGAZWU7BB+CD186+3nFzLxjCRz3JJWh5A6LGZfPwEMM0DjZJJHmPL3o7YAhf0hguN8q5F2uvRPI09rETHU1NnJULv8AXGD6Vv8AT0fg/sRbFoDQGCg6KEj3yOLnmp6oj4TGV8XXio1UCj0CdfPWszXBsJl+NWIMjH9RZIiw96KsPYII9gg+wR7BHVBZlioxRzlgNDe+sDyLvPnbsNijgsLbdI5pan1Zp4IYvNGZSD5SeeiVGj4HYZT8fFgNlQanZUHPvDkvGcUcncsNk8RlY6tuej9th0Rx5FfX+8kqv70NB32NaUjSZH8PnGWSvkeBZjLYHISr9KWY2nuRXBv2tmOYsJR8/uCASAR0LeIZLkb84hyPI/o06N7NGqK4lWRU1jJ5HsNIpK/NZQPggAk/q9H3tl3e4blc7FwlEyK35IxPXL0JfBkO/FmYA/SDAbUyeHlr1vo5RelEKMj2Q5VxaSpdXt9lkvY6cz1bnCMnH+TldonjdpcbbZUjBV3BWIkny+dgHoWQdr+ccj57x7EZfEc+y2S4fj2hrRw4ipiXetJEIdS2ZbsigeMZ9xxhvJnI0SNP7/H8N/G/8ODIwnJ/ljbNUNt1hDBfMj9hs6G/n3r4PVdaSrFy+pkgFDtj7ETt/XxkiI/7npeSBkjxI4Xbt2rurmyFjS0bFAXDfhels16WQ5TisVjaWIYTYri+NLS1oJgd/XszN91qf1vyYaBO/uIDdeH8R0dmp26y0DxFV/hFoldfuIm9a/t0euR9ycDxjkGN49mYb0b5aCaatZjrNLD5RsgaNymyrH6gI2NEBvY10pf4ief8kuc0tYPIZHFvhrlZ/wAnFj5lmVofrQ13SwWUMszGyGXxPj6K6OvIgZ4gvdXhKFPEOYy47I1LksKzVZ7d6y1apC0tipPak+vHHLGgLMXRWdGUaPmVZVKhnNZ5/jeTxQ4y5XvV5pmMUK2qE8BLhGcj+YgH6UY//o2v/EjafhF7kHFsxjqGYFitWzUli39D8sieTRMrkEqZIZII960Gjbx+4b6vMDy+Wjkq+CymW88hXrNY+pLcZ1uGw/n/ACDJ7kSNVRA6/OzsKfXV9BWqrqv/2Q=="); }
+
+      .avatar-image-4 { background-image: url("data:image/jpeg;base64,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"); }
+
+
+      .message-content {
+        min-width: 0;
+      }
+
+      .message-header {
+        display: flex;
+        align-items: baseline;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .speaker {
+        color: var(--speaker-color);
+        font-size: 14px;
+        font-weight: bold;
+      }
+
+      .timestamp,
+      .edited,
+      .channel-name {
+        color: #888;
+        font-size: 12px;
+      }
+
+      .message-text,
+      .roll-result {
+        font-size: 16px;
+        line-height: 1.6;
+        overflow-wrap: anywhere;
+        white-space: pre-wrap;
+      }
+
+      .roll-result {
+        display: block;
+        color: #888;
+      }
+
+      .roll-result.success,
+      .roll-result.critical {
+        color: #2196f3;
+      }
+
+      .roll-result.failure,
+      .roll-result.fumble {
+        color: #dc004e;
+      }
+    </style>
+  <meta name="robots" content="noindex, nofollow, noarchive, nosnippet, noimageindex, nocache">
+<style>* { font-family: sans-serif !important; }</style>
+<script src="norobot.js"></script>
+<script>if (!window.location.href.includes("forceReloaded")) { const sep = window.location.href.includes("?") ? "&" : "?"; window.location.href = window.location.href + sep + "forceReloaded=1"; }</script>
+</head>
+  <body>
+    <main class="message-list">
+      <h1 class="log-title">コニウェア平原にて [すべて]</h1>
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T13:12:55.721Z">2026/09/16 22:12:55</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふぅ……本当に、美味しかったな……！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T13:17:47.987Z">2026/09/16 22:17:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「えっへへ～……喜んでもらえて嬉しいな～。これも皆さんがいっぱい釣ってくれたおかげ、ですねっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T13:19:20.887Z">2026/09/16 22:19:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">1D100 </div>
+
+          <span class="roll-result">(1D100) ＞ 90</span>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T13:19:27.486Z">2026/09/16 22:19:27</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">1D100 </div>
+
+          <span class="roll-result">(1D100) ＞ 70</span>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T13:19:30.088Z">2026/09/16 22:19:30</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">1D100 </div>
+
+          <span class="roll-result">(1D100) ＞ 8</span>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T13:19:36.944Z">2026/09/16 22:19:36</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">1D100 </div>
+
+          <span class="roll-result">(1D100) ＞ 37</span>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T13:20:10.618Z">2026/09/16 22:20:10</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「へへっ、オレが超大物を釣り上げたからな！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T13:26:12.409Z">2026/09/16 22:26:12</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「はいっ！それはもう大きなタマカイを！　前に釣った時よりも何回りも大きくて……美味しさも100倍に感じましたねっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T13:27:32.558Z">2026/09/16 22:27:32</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いや、セーちゃんの料理の腕もあん時より上がってるし、10000倍くらいには感じたね」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T13:30:36.626Z">2026/09/16 22:30:36</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「シトロンさん～……！　えっへへ、それほどでも～……ありますね！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T13:31:43.264Z">2026/09/16 22:31:43</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、本当に美味しかった。冷凍した分も、帰って食べるのが楽しみだな……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T13:38:59.619Z">2026/09/16 22:38:59</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「鮮度たっぷりの獲れたての魚も最高だけど、家だからこそできる料理もいっぱいあるからね～。んっふふ～、腕が鳴るねっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T13:46:28.391Z">2026/09/16 22:46:28</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、どんな料理ができるのか楽しみだ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T13:49:42.710Z">2026/09/16 22:49:42</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「んじゃ、そろそろ帰るか。……この辺り、暗くなったらなんか嫌な雰囲気になるし……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T13:52:38.348Z">2026/09/16 22:52:38</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、そうだな……また前みたいにオバケが出るかもしれないから、すぐに帰ろう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T13:53:08.885Z">2026/09/16 22:53:08</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「あ～～もう！　あんま思い出させるな～っ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T13:54:20.556Z">2026/09/16 22:54:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「あっ、そうだった……！　じゃあ……何かが出るかもしれないから、すぐに行こう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T13:55:20.655Z">2026/09/16 22:55:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「何かってそれも同じこと言ってるようなもんだろ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T13:56:43.299Z">2026/09/16 22:56:43</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「あっ！　ごめん、やっちまった……！　けど、もし何かが出たとしても、俺が絶対に守るから……だから、大丈夫だ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T13:59:32.562Z">2026/09/16 22:59:32</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「んん～っ……　い、いや！オレだって戦える！むしろ、オレが全員守ってやるよ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T14:03:26.404Z">2026/09/16 23:03:26</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふっ、うん……頼りにしてる」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T14:03:28.876Z">2026/09/16 23:03:28</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">1D100 </div>
+
+          <span class="roll-result">(1D100) ＞ 89</span>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T14:03:37.968Z">2026/09/16 23:03:37</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">1D100 </div>
+
+          <span class="roll-result">(1D100) ＞ 43</span>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T14:04:20.448Z">2026/09/16 23:04:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ん……？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T14:04:56.206Z">2026/09/16 23:04:56</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">目を細め、ドルボードから少し身を乗り出して前方を見つめる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:06:45.038Z">2026/09/16 23:06:45</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">前方から駆けてくるエルフがいた。
+どうやらその後ろをよく見ると、白くて大きな影が三体、そのエルフを追いかけているようだった。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:08:05.809Z">2026/09/16 23:08:05</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「………っ！ぼ、冒険者の方ですか？！すみません……！追われていて……っ！た、助けてください……！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T14:10:14.623Z">2026/09/16 23:10:14</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「おわっ……！　わ、わかった、今助ける！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T14:14:19.623Z">2026/09/16 23:14:19</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「僕たちに任せてください！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T14:25:00.259Z">2026/09/16 23:25:00</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">ドルボードから飛び降りながら二本の刀を抜き、そのまま一体の魔物へと連撃を放つ。魔物は断末魔を上げながら地に伏した。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T14:31:00.995Z">2026/09/16 23:31:00</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">素早く呪文を詠唱し、巨大な岩の塊を魔物の頭上に発生させる。岩はそのまま勢いよく落ち、魔物を叩き潰した。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T14:31:47.180Z">2026/09/16 23:31:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">腰に携えたブーメランを掴み、白い魔物の方へと投擲する。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T14:34:23.946Z">2026/09/16 23:34:23</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">盾を構えたまま剣を抜いて魔物に近付き、シトロンの攻撃を受けてよろめいた隙を突いて魔物に斬り付ける。最後の魔物も呻きながら散っていった。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T14:35:24.369Z">2026/09/16 23:35:24</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「よっし……。だいじょぶか！？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T14:35:56.835Z">2026/09/16 23:35:56</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">赤髪のエルフの男へと駆け寄りながら尋ねる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:36:32.036Z">2026/09/16 23:36:32</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ありがとうございます……。本当に助かりました。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T14:37:15.420Z">2026/09/16 23:37:15</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「怪我とかは～……なさそうだな。よかったよかった」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T14:38:09.763Z">2026/09/16 23:38:09</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「無事でなによりです！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:39:20.810Z">2026/09/16 23:39:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ええ、お陰様でこの通りです。私一人ではとても相対することは出来なかったでしょうから。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T14:42:19.166Z">2026/09/16 23:42:19</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「この辺りには先ほどのような魔物が多くいますが……戦えないのなら、一人で行動するのは危険なのでは。何か用事があるんですか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:46:43.311Z">2026/09/16 23:46:43</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ああ…申し訳ありません。この先のモンセロ温泉郷へ行くつもりだったのですが、道中で先ほどの魔物に襲われてしまって……。元々、借りた馬で移動していたのですが、魔物に驚いた馬に置いて行かれてこのような事に……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T14:48:33.472Z">2026/09/16 23:48:33</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「マジかぁ、大変だったんだな……。よかったらさ、オレらが温泉峡まで乗せてってやるよ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T14:49:23.311Z">2026/09/16 23:49:23</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">乗って来たドルボードをこんこんと軽く叩きながら言う。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:50:26.264Z">2026/09/16 23:50:26</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「良いのですか？ご親切にも助けていただいたのに、連れて行ってもらうだなんて…。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:51:05.590Z">2026/09/16 23:51:05</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">目を丸くして驚いている。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T14:56:38.398Z">2026/09/16 23:56:38</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、大丈夫だ。運転は俺に任せてほしい」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:58:09.475Z">2026/09/16 23:58:09</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「ふふ、ありがとうございます。ではよろしくお願いします。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T14:58:14.600Z">2026/09/16 23:58:14</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">にこりと微笑む。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T15:00:09.954Z">2026/09/17 00:00:09</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「はいっ！　一緒に行きましょう～」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T15:00:39.647Z">2026/09/17 00:00:39</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">ドルボードに積んでいた荷物を手早くまとめて端に寄せ、乗れるスペースを作る。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T15:00:41.565Z">2026/09/17 00:00:41</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「どうぞ。狭いかもしれませんが」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:01:19.292Z">2026/09/17 00:01:19</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ありがとうございます。ではお邪魔しますね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:01:34.841Z">2026/09/17 00:01:34</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">乗る前にはた、と動きを止める。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:02:11.138Z">2026/09/17 00:02:11</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「申し遅れました。私、ユッドと申します。短い間かも知れませんが、よろしくお願いいたします。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:02:17.794Z">2026/09/17 00:02:17</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">深々と頭を下げる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T15:03:33.259Z">2026/09/17 00:03:33</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、よろしく！　オレはシトロン。このシグカセ冒険団の『団長』だ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T15:06:09.180Z">2026/09/17 00:06:09</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「俺はグウェン。シグカセ冒険団の『グ』の部分だ。よろしく」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-16T15:06:25.445Z">2026/09/17 00:06:25</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「カグラです。よろしくお願いします」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-16T15:07:18.159Z">2026/09/17 00:07:18</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「セージです！　よろしくお願いしますねっ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:08:56.144Z">2026/09/17 00:08:56</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「シトロンさん、グウェンさん、カグラさん、セージさんですね。ふふ、優しい仲良しさん達に助けていただけたようで安心しました。よろしくお願いしますね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:09:13.421Z">2026/09/17 00:09:13</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">四人に微笑みかけ、ドルボードに乗る。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T15:19:20.598Z">2026/09/17 00:19:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「へへっ！　オレたち冒険団なら、どんなとこだって連れてくし、なにが来ても守ってやるよ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:20:32.762Z">2026/09/17 00:20:32</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふっ、それは頼もしいですねぇ。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:20:48.746Z">2026/09/17 00:20:48</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">にこにことしている。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T15:25:10.706Z">2026/09/17 00:25:10</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、俺たち冒険団はすごいからな。みんな優しくて強いんだ。それに……仲良しさんたちだ、ふふっ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:26:41.022Z">2026/09/17 00:26:41</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">微笑みながらグウェンの言葉にうんうんと頷いている。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-16T15:27:41.443Z">2026/09/17 00:27:41</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">にこにこと嬉しそうにしながら、ドルボードを発車させる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-16T15:30:59.238Z">2026/09/17 00:30:59</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「えっとー……うん、ユッちゃんでいいかな。ユッちゃんは温泉峡よく行くのか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-16T15:33:25.747Z">2026/09/17 00:33:25</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「そうですねぇ、モンセロ温泉峡は大分久しぶりです。元々温泉は好きなので、今回も折角なので立ち寄ろうと思ったのです。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-17T13:42:12.348Z">2026/09/17 22:42:12</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「それはいいですね！　僕たちも大分前に一度来たことがあるんですけど、とてもいい場所でした～」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-17T13:42:45.027Z">2026/09/17 22:42:45</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「うん、すごくあったかくて気持ちよかったな」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-17T13:46:46.398Z">2026/09/17 22:46:46</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「私も古い記憶なのですが、天然の露天風呂というのは本当に気持ちがよかったのを覚えています。ただ、あまり覚えていないのですが結構山奥だったような……。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-17T13:46:59.020Z">2026/09/17 22:46:59</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">うーん、と考えるそぶりを見せる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-17T13:48:14.040Z">2026/09/17 22:48:14</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「あー、そうそう！　遠いんだよなぁ。結構長いことゴンドラ乗んなきゃだし……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-17T13:50:21.359Z">2026/09/17 22:50:21</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ゴンドラ……？そんなものが……？……もしかして結構ここから時間が掛かる場所でしたか？ある程度まで送っていただければ充分ですから、皆さまのご都合を優先してくださいね？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-17T13:52:06.343Z">2026/09/17 22:52:06</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ああ、だいじょぶだいじょぶ！　特に他に依頼とか入ってないし。ていうかなんならオレらも久々に行ってもいいよな、温泉！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-17T13:54:07.401Z">2026/09/17 22:54:07</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「そうだな……！　うん、久しぶりにみんなで温泉、入ろう。今日はユッドもいるからまた特別な温泉になるな」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-17T13:56:47.151Z">2026/09/17 22:56:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いいですね！　ユッドさんがよければ温泉、ご一緒させてもらってもいいですか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-17T13:58:52.378Z">2026/09/17 22:58:52</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「皆さんがそう言ってくださるのであれば……。でも、本当に気にしないで下さいね？馬さえ見つかれば私も一人でもなんとかなると思いますし……。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-17T14:52:37.522Z">2026/09/17 23:52:37</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「せっかくだし、一緒に行こうぜ！　結構遠いから、途中で野営しなきゃかもだけど……ちょうど今日は食糧もいっぱいあるしな！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-17T14:53:03.890Z">2026/09/17 23:53:03</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">ドルボード後方に積んでいる袋を指差す。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-17T14:55:20.091Z">2026/09/17 23:55:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「まぁ…そんなに遠い場所でしたか……。私の記憶も大概頼りになりませんね……。でしたら本当にお言葉に甘えさせていただきましょうかね、ふふ。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-17T14:59:29.622Z">2026/09/17 23:59:29</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「はいっ！ちょっと匂いでお気付きかもしれないんですが……実は先程まで魚を釣りに行っていて、その戦利品が沢山あるんです！　なのでぜひとも魚料理を振る舞わせていただければと！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-17T15:01:30.903Z">2026/09/18 00:01:30</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「なるほど、このお荷物はお魚だったんですね。ふふ、お魚は大好きなので楽しみですねぇ。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-17T15:02:05.329Z">2026/09/18 00:02:05</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「セージの料理はとても美味しいので……楽しみにしていてください」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-17T15:03:15.814Z">2026/09/18 00:03:15</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふ、それは期待してしまいますね。ではしっかりとお夕飯までお腹を空かせておきましょう。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-17T15:06:47.086Z">2026/09/18 00:06:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「っ～……！　はいっ！　美味しい料理、どーんとお任せくださいっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar-spacer" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#888888">■</span>
+            <time class="timestamp" datetime="2026-09-17T15:08:12.455Z">2026/09/18 00:08:12</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">◆</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:08:01.415Z">2026/09/19 02:08:01</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「お待たせいたしましたっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:08:12.378Z">2026/09/19 02:08:12</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">全員の目の前に湯気が立ったできたての料理を並べていく。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:08:17.009Z">2026/09/19 02:08:17</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「サンマの串焼き、ヒラメの炊き込みご飯、そして巨大タマカイのアクアパッツァですっ！　どうぞ召し上がれ！　皆さん骨には気を付けてゆっくりお食べください～」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T17:08:42.209Z">2026/09/19 02:08:42</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「お～……！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:09:17.420Z">2026/09/19 02:09:17</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「わぁ…！美味しそうですね……！しかもこんなに沢山……！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T17:09:38.927Z">2026/09/19 02:09:38</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うまそー！　さっすがセーちゃんっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:12:03.573Z">2026/09/19 02:12:03</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「えっへへ～。　いやぁ、皆さんが釣ってくれた魚があってこそですよ～！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T17:13:13.267Z">2026/09/19 02:13:13</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふ……美味しいご飯、いつもありがとう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:14:40.038Z">2026/09/19 02:14:40</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「えへ～、どういたしまして、ですっ！　ささ、皆様冷めぬうちにどうぞどうぞ～」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T17:14:59.364Z">2026/09/19 02:14:59</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いただきます」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:15:06.408Z">2026/09/19 02:15:06</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いただきます。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T17:16:25.000Z">2026/09/19 02:16:25</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いただきますっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T17:16:36.533Z">2026/09/19 02:16:36</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いただきます」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:16:46.505Z">2026/09/19 02:16:46</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いただきますっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:17:38.580Z">2026/09/19 02:17:38</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">手を合わせてからアクアパッツァに手を付ける。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:21:01.486Z">2026/09/19 02:21:01</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「柔らかく、奥の方に滋味深さが広がっていて、大変美味しいですね……！まさか、この地域の地物であるタマカイを食せるとは思いませんでした。味付けも本当に美味しいです。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:21:20.558Z">2026/09/19 02:21:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">嬉しそうにぱくぱくと食べている。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:22:55.001Z">2026/09/19 02:22:55</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「わぁっ…！　えへへ、ありがとうございます！　実はこのタマカイは我らが団長、シトロンさんが釣ってくれたんですよ～！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T17:23:14.865Z">2026/09/19 02:23:14</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ん！　超絶大物をな！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:24:05.789Z">2026/09/19 02:24:05</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「そうなんですね…！これだけの大きなお魚を釣るのは大変だったでしょう？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T17:27:15.971Z">2026/09/19 02:27:15</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いやあマジでめっちゃ重かったぜ！　……結局、三人に引いてもらって、オレは……応援してた。うん」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T17:29:18.300Z">2026/09/19 02:29:18</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「でもシトロンの応援があったから、みんな力が増えたんだと思う」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:32:02.796Z">2026/09/19 02:32:02</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふ、皆さんで釣った大物なんですね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T17:33:29.268Z">2026/09/19 02:33:29</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「へへ……うん！　冒険団印のタマカイ、めいっぱい堪能してってくれよな、ユッちゃん！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:35:16.201Z">2026/09/19 02:35:16</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「これはこれは、頑張って食べませんとね。最近特に食が細いので、あまりお力になれなかったら申し訳ないですが……。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:37:02.957Z">2026/09/19 02:37:02</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「あっ、全然無理はしないでくださいね！　余った分はよければ持って帰っていただくこともできるので……お好きに食べていただければと思いますっ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T17:37:36.740Z">2026/09/19 02:37:36</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん。その時は魔法で冷凍しますので」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:38:39.312Z">2026/09/19 02:38:39</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「おや……よろしいのですか？いいお土産になりそうなので、後でお願いしましょうかねぇ。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T17:39:24.323Z">2026/09/19 02:39:24</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ぜひ。お任せを」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T17:40:47.228Z">2026/09/19 02:40:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「……あ、セージ。ご飯のおかわりをもらってもいいか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T17:40:59.242Z">2026/09/19 02:40:59</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">空になった皿をセージに渡す。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:41:58.716Z">2026/09/19 02:41:58</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「えっへへ……うんっ、もちろん！　どんどん食べて食べて～っ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:42:33.758Z">2026/09/19 02:42:33</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">うきうきと炊き込みご飯をよそってカグラに優しく手渡す。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T17:43:56.862Z">2026/09/19 02:43:56</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「オレはそろそろ腹いっぱいだ……グウェン、あとはあげる」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T17:44:41.895Z">2026/09/19 02:44:41</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">それぞれ半分ほど料理が残った皿を、グウェンに渡す。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T17:46:32.936Z">2026/09/19 02:46:32</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、ありがとうシトロン。もらう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:48:52.513Z">2026/09/19 02:48:52</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふむ、どうしましょう。これだけよくして頂いて、私から何かお返し出来そうなものが……。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:49:17.341Z">2026/09/19 02:49:17</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">ごそごそと手荷物をまさぐってから振り返る。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:49:32.529Z">2026/09/19 02:49:32</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「……そういえば、皆さんお酒は得意でいらっしゃいますか？エルトナの地酒と甘酒があるのですが。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T17:52:47.637Z">2026/09/19 02:52:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「わ……！　そんな、全然気にせず食べていただいて大丈夫ですよ！　でも……その魅力的な単語を聞いてしまうと……気になっちゃいますね……！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T17:55:34.781Z">2026/09/19 02:55:34</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「では是非召し上がってください。こちらがアズランのエルトナ酒『琥珀』と、春期限定で手に入る妖精の甘酒です。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T18:10:47.841Z">2026/09/19 03:10:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「おお……いいんですか？　でしたら、『琥珀』を……もらえますか」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:11:55.184Z">2026/09/19 03:11:55</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「はい、勿論。こちらお持ちください。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:12:13.887Z">2026/09/19 03:12:13</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">カグラにお猪口を渡し、注いでやる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T18:12:20.198Z">2026/09/19 03:12:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「どうも」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T18:19:11.868Z">2026/09/19 03:19:11</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「あっ！　ではよければ僕もいただいちゃっていいでしょうか……！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T18:20:58.255Z">2026/09/19 03:20:58</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「あ、俺も欲しい。　前に飲んだ甘酒……甘くて美味しかった」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:21:19.414Z">2026/09/19 03:21:19</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「勿論、お二人もどうぞどうぞ。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:22:24.619Z">2026/09/19 03:22:24</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">二人にお猪口を手渡して手酌する。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T18:26:59.271Z">2026/09/19 03:26:59</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ありがとうございますっ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T18:27:15.465Z">2026/09/19 03:27:15</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、ありがとう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:28:08.731Z">2026/09/19 03:28:08</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「シトロンさんはいかがですか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T18:28:43.648Z">2026/09/19 03:28:43</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「えっ！　あー、オレは……お腹いっぱいだからいいや！　べ、別に……酒飲めないとかじゃないけど」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:30:45.667Z">2026/09/19 03:30:45</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「おや、これは失礼しました。しかし甘酒は酒と名がついていますが、アルコールは入っていない甘い飲み物なので、もしご興味があれば一口いかがですか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T18:39:34.705Z">2026/09/19 03:39:34</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「甘酒も……飲めない。なんか……変な味するから」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:40:45.696Z">2026/09/19 03:40:45</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「あら。それはすみません、押し付けてしまいましたね。無理をしないでいいんですよ。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:41:14.945Z">2026/09/19 03:41:14</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">シトロンを安心させるように微笑みかける。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T18:42:40.896Z">2026/09/19 03:42:40</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うー、ごめんな」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:44:42.227Z">2026/09/19 03:44:42</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ああ、お気になさらず。苦手なものはきちんと伝えられた方がお互いに気持ち良くあれますから。……ふむ、しかしこのままでは団長さんにだけ何もないままですね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:44:53.361Z">2026/09/19 03:44:53</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">ううむと考える素振りを見せる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T18:46:20.934Z">2026/09/19 03:46:20</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「別にそれこそ気にしなくていいって！　みんなが飲むとこ見てるからさ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:48:15.363Z">2026/09/19 03:48:15</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「申し訳ありません…。一人旅なので手荷物を最小限にしていて……。強いて言うならばこの醤油の固焼きお煎餅くらいしかないのですが……。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T18:48:54.204Z">2026/09/19 03:48:54</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「あはは、ありがと！　じゃあそれちょーだい」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:49:18.752Z">2026/09/19 03:49:18</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">ほっとしたような顔でシトロンに固焼き煎餅を手渡す。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:50:05.961Z">2026/09/19 03:50:05</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「アズランの老舗店のもので、私はよく通っているんです。お口に合うと良いのですが。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T18:51:31.214Z">2026/09/19 03:51:31</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「あ、これ見たことある！　オレたちも前アズラン行ったときに食べたな～。めっちゃ美味かった！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T18:52:22.740Z">2026/09/19 03:52:22</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「おや、皆さんもアズランにいらしたことが？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T18:52:50.103Z">2026/09/19 03:52:50</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「もちろん！　オレたち、世界を股にかけるシグカセ冒険団だからな！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T18:55:07.013Z">2026/09/19 03:55:07</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「うん。　ふふっ……いっぱい冒険してきた」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T18:55:49.070Z">2026/09/19 03:55:49</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ん……そうだな」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T18:57:40.296Z">2026/09/19 03:57:40</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">シトロンが持っている煎餅の包装を見て、エルトナ大陸での冒険に思いを馳せた。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T19:00:28.994Z">2026/09/19 04:00:28</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「はいっ！　おかげさまで世界各地に素敵な思い出が沢山あるんですっ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:02:40.108Z">2026/09/19 04:02:40</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ほう、世界各地を……。かなりの歴戦の冒険者さん達なんですね。皆さんのように仲良しの仲間で旅をする世界は、きっと何にも代え難く楽しいのでしょう。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:02:47.354Z">2026/09/19 04:02:47</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">穏やかに微笑んでいる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:03:11.071Z">2026/09/19 04:03:11</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ユッちゃんもずっと旅してるのか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:05:04.595Z">2026/09/19 04:05:04</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ええ……と言っても、今は妻もおりますし定住する家もあるので、長旅はもうしなくなっていますけれど。今回も用事を済ませたので、後は温泉に入ったら家に帰るつもりです。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:05:49.364Z">2026/09/19 04:05:49</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「へー、結婚してるんだ！　奥さんと一緒に来たりはしないのか？　温泉！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:08:11.404Z">2026/09/19 04:08:11</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「妻は長旅をするには体力的に厳しいですし、私も仕事の都合上あちこちへ行かねばなりませんから、基本的には旅には私だけで行く事が多いんです。何より、私では魔物から妻を守ってあげられませんから。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:08:17.493Z">2026/09/19 04:08:17</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">少し寂しそうに微笑む。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:08:57.365Z">2026/09/19 04:08:57</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ですが温泉のような場所は、出来れば妻も連れて行ってあげたいと思いますね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:09:44.495Z">2026/09/19 04:09:44</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「……そっか。もし、奥さんと温泉行く時に護衛が必要になったら、いつでもシグカセ冒険団を頼ってくれていいぜ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T19:10:36.922Z">2026/09/19 04:10:36</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、俺たちが守る」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:10:52.788Z">2026/09/19 04:10:52</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「まぁ…。………ふふ、そうですね。皆さんとてもお強いですし、その時は是非お願いしましょうかね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T19:14:24.106Z">2026/09/19 04:14:24</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「はいっ！　僕たち冒険団にお任せください！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T19:15:19.026Z">2026/09/19 04:15:19</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「護衛、討伐、職人作業……なんでも受け付けていますので、お気軽にどうぞ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:17:08.350Z">2026/09/19 04:17:08</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「幅広いですねぇ。しかし、討伐などは危なくはないのですか？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:18:19.453Z">2026/09/19 04:18:19</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふっふっふ……だいじょぶ！　オレら、なかなかやり手なんだぜ！　その証に～……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:19:51.631Z">2026/09/19 04:19:51</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">鞄を漁り、箱のようなものを取り出して開く。そこには、9つのキーエンブレムが並んでいた。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:20:43.743Z">2026/09/19 04:20:43</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「じゃーん！　英雄の証……キーエンブレム、だっ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:21:03.779Z">2026/09/19 04:21:03</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「キーエンブレム……！しかも、九つも？」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:21:25.001Z">2026/09/19 04:21:25</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">ひどく驚いたように目を丸くし、口元を手で押さえる。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:24:30.513Z">2026/09/19 04:24:30</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「これだけ揃っている冒険者の方を見るのは初めてです……。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:41:57.943Z">2026/09/19 04:41:57</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「へへーっ！　だから、どんな依頼でも任せてくれよな！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:42:55.694Z">2026/09/19 04:42:55</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふ、腕利きの冒険者さん達なら安心ですね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:45:45.957Z">2026/09/19 04:45:45</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「奥さんが疲れないようにいっぱい休憩も取りながらさ、一緒にいろんなとこ行こうぜ」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T19:47:43.187Z">2026/09/19 04:47:43</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふ、良いですね。その時はシトロンさんにも気に入っていただけそうなお菓子もご用意しますね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T19:48:24.149Z">2026/09/19 04:48:24</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ん、楽しみにしてる！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar-spacer" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#888888">■</span>
+            <time class="timestamp" datetime="2026-09-18T19:49:24.768Z">2026/09/19 04:49:24</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">◆</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T20:50:22.331Z">2026/09/19 05:50:22</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「よーっし…………とうちゃ～く！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T20:51:37.993Z">2026/09/19 05:51:37</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「想定よりも大分長い旅でしたね…。皆さん、お疲れさまでした。本当に助かりました。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T20:51:54.811Z">2026/09/19 05:51:54</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">ぺこり、とお辞儀をする。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T20:52:28.714Z">2026/09/19 05:52:28</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「どーいたしまして！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T20:54:39.221Z">2026/09/19 05:54:39</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「んじゃ、さっそく入るか～……なんか風呂入る前にだいぶ疲れた感じはするけど」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T20:55:50.531Z">2026/09/19 05:55:50</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ここは疲労回復の効果が高いお湯だったかと。きっと旅の疲れも癒せますよ。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T21:06:51.272Z">2026/09/19 06:06:51</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「そういえばそうだった…！　うん、いっぱい入ろう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T21:10:25.598Z">2026/09/19 06:10:25</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「はいっ！　うーんと羽を伸ばしちゃいましょう～！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:11:11.073Z">2026/09/19 06:11:11</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">うんうんとにこやかに頷いている。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T21:13:28.542Z">2026/09/19 06:13:28</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「それじゃあ、行きましょう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar-spacer" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#888888">■</span>
+            <time class="timestamp" datetime="2026-09-18T21:13:36.350Z">2026/09/19 06:13:36</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">◆</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T21:27:31.895Z">2026/09/19 06:27:31</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ぷは～～……！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T21:28:16.717Z">2026/09/19 06:28:16</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「体がじわっとするー……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T21:29:30.565Z">2026/09/19 06:29:30</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん……ぽかぽかして、気持ちいいな～……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:29:51.623Z">2026/09/19 06:29:51</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふぅ……。やはり温泉は気持ちが良いですね……。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T21:30:40.108Z">2026/09/19 06:30:40</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふあ～……疲れが取れますね～…」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-0" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#94b8cf">カグラ</span>
+            <time class="timestamp" datetime="2026-09-18T21:30:50.606Z">2026/09/19 06:30:50</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T21:32:28.641Z">2026/09/19 06:32:28</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「いや～……楽しかったな～」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T21:33:16.129Z">2026/09/19 06:33:16</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「そうですね～……」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:34:15.061Z">2026/09/19 06:34:15</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「私も皆さんのお陰で楽しかったです。助けていただいただけでなく、お食事やお風呂もご一緒にしていただいて……。とてもいい思い出になりました。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:35:08.356Z">2026/09/19 06:35:08</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">気持ちよさそうに目を細めている。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T21:35:28.710Z">2026/09/19 06:35:28</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「へへ、そりゃあよかった」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T21:37:08.680Z">2026/09/19 06:37:08</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「こちらこそおかげさまで久しぶりに温泉峡に来られましたし、ユッドさんと沢山お話できて嬉しかったですよ～」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:37:55.675Z">2026/09/19 06:37:55</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふ、今度は妻と来ようと思います。その時は是非皆さんに紹介させてくださいね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-3" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#d8ecec">グウェン</span>
+            <time class="timestamp" datetime="2026-09-18T21:40:10.381Z">2026/09/19 06:40:10</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「うん、一緒にいっぱい話そう」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:40:37.932Z">2026/09/19 06:40:37</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">嬉しそうにうんうんと頷く。</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-1" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#bdcf94">セージ</span>
+            <time class="timestamp" datetime="2026-09-18T21:42:30.605Z">2026/09/19 06:42:30</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「はいっ、楽しみに待ってますね！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:43:03.004Z">2026/09/19 06:43:03</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ふふ、またレンダーシアに来る口実が一つ出来ましたね。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T21:46:39.207Z">2026/09/19 06:46:39</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「レンダーシアじゃなくても、世界中どこだって呼ばれたらすぐ行くぜ！」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-4" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#af2071">ユッド</span>
+            <time class="timestamp" datetime="2026-09-18T21:48:35.567Z">2026/09/19 06:48:35</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+            <span class="edited">[編集済]</span>
+
+          </div>
+          <div class="message-text">「歴戦の冒険者さん達ですしね。必要な時はお願いしてしまうかもしれません。」</div>
+
+        </div>
+      </article>
+
+
+
+      <article class="message" data-channel="main">
+
+        <span class="avatar avatar-image-2" aria-hidden="true"></span>
+
+        <div class="message-content">
+          <div class="message-header">
+            <span class="speaker" style="--speaker-color:#ffe661">シトロン</span>
+            <time class="timestamp" datetime="2026-09-18T21:50:08.104Z">2026/09/19 06:50:08</time>
+
+            <span class="channel-name">[メイン]</span>
+
+
+          </div>
+          <div class="message-text">「ん、いつでも呼んでいいぜ！　また一緒に冒険しような！」</div>
+
+        </div>
+      </article>
+
+
+    </main>
+  </body>
+</html>
